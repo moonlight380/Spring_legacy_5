@@ -24,8 +24,14 @@ public interface BoardDAO {
 
 	public int boardWrite(BoardVO boardVO)throws Exception;
 	
+	//delete
+	public int  boardDelete(long num) throws Exception;
 	
 	
+	//update
+	public int boardUpdate(BoardVO boardVO) throws Exception;
 	
+	//hit update
+	public int hitUpdate(BoardVO boardVO) throws Exception;
 
 }

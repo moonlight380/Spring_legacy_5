@@ -4,13 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.google.s5.notice.NoticeDAO">
-  		<select id=""></select>
-  		<insert id="">
-  			INSERT into notice values(board_seq.nextval, ?,?,?,SYSDATE,0)
+  
+  		<insert id="boardWrite" parameterType="com.google.s5.notice.NoticeVO">
+  			INSERT into notice values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0)
   		</insert>
-  		<update id=""></update>
-  		<delete id=""></delete>
+
+		<delete id="boardDelete" parameterType="java.lang.Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
+		
+		delete notice where num=#{num}
+		</delete>
+  
+  		<update id="boardUpdate">
+  		UPDATE notice set contents =#{contents}, title=#{title} where num=#{num}
+  		</update>
   
   
-  
+    	<update id="hitUpdate">
+  		UPDATE notice set hit=#{hit+1} where num=#{num}
+  		</update>
   </mapper>

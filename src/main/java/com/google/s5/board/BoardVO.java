@@ -6,7 +6,7 @@ import java.sql.Date;
 public class BoardVO {
 	private long num;
 	private String title;
-	private String witer;
+	private String writer;
 	private String contents;
 	private Date regDate;
 	private int hit;
@@ -23,11 +23,11 @@ public class BoardVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getWiter() {
-		return witer;
+	public String getWriter() {
+		return writer;
 	}
-	public void setWiter(String witer) {
-		this.witer = witer;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getContents() {
 		return contents;
@@ -47,6 +47,8 @@ public class BoardVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+
 	
 	
 
