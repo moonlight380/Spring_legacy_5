@@ -14,12 +14,12 @@
 		delete notice where num=#{num}
 		</delete>
   
-  		<update id="boardUpdate">
+  		<update id="boardUpdate" parameterType="com.google.s5.notice.NoticeVO">
   		UPDATE notice set contents =#{contents}, title=#{title} where num=#{num}
   		</update>
   
   
-    	<update id="hitUpdate">
-  		UPDATE notice set hit=#{hit+1} where num=#{num}
+    	<update id="hitUpdate" parameterType="java.lang.Long">
+  		UPDATE notice set hit=hit+1 where num=#{num}
   		</update>
   </mapper>

@@ -36,19 +36,23 @@ public class noticeDAOTest extends AbstractTestCase{
 		 */
 		 
 		
-		//보드 업데이트
-		@Test 
-		public void boardUpdate() throws Exception{		 
-		NoticeVO noticeVO = new NoticeVO();
-		noticeVO.setContents("dd");
-		noticeVO.setTitle("dd");
-		int result= noticeDAO.boardUpdate(noticeVO);
-		assertEquals(1, result);
-		}
 		/*
-		 * //업데이트 public void hitUpdate() throws Exception{
+		 * //보드 업데이트
 		 * 
-		 * int result= noticeDAO.boardDelete(12); assertEquals(1, result); }
+		 * @Test 
+		 * public void boardUpdate() throws Exception{ 
+		 * NoticeVO noticeVO = new NoticeVO(); 
+		 * noticeVO.setContents("dd"); noticeVO.setTitle("dd");
+		 * noticeVO.setNum(13); int result= noticeDAO.boardUpdate(noticeVO);
+		 * assertEquals(1, result); }
 		 */
+		
+		 //히트업데이트
+		@Test
+		public void hitUpdate() throws Exception{
+		int result= noticeDAO.hitUpdate(10);
+		assertEquals(1, result); 
+		}
+		
 
 }
