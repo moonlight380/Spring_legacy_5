@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.google.s5.board.BoardDAO;
 import com.google.s5.board.BoardVO;
 
+import java.util.Map;
 @Repository
 public class NoticeDAO implements BoardDAO{
 	@Autowired
@@ -18,15 +19,16 @@ public class NoticeDAO implements BoardDAO{
 	private final String NAMESPACE="com.google.s5.notice.NoticeDAO.";
 	
 	@Override
-	public List<BoardVO> boardList() throws Exception {
+	public List<BoardVO> boardList(Map<String,Integer> map) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(NAMESPACE+"boardList",map);
 	}
 
 	@Override
-	public BoardVO boardSelect() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardVO boardSelect(long num) throws Exception {
+		// 여기에 있는 변수명이 파라미터 변수명과 같아야 한다
+		return sqlSession.selectOne(NAMESPACE+"boardSelect", num);
+		
 	}
 
 	@Override
@@ -56,6 +58,14 @@ public class NoticeDAO implements BoardDAO{
 		
 		return sqlSession.update(NAMESPACE+"hitUpdate", num);
 	}
+
+	//count
+	@Override
+	public long boardCount() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"boardCount");
+	}
+
 
 
 }
