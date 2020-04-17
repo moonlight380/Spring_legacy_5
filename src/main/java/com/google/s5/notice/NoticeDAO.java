@@ -14,16 +14,21 @@ import com.google.s5.board.BoardVO;
 import java.util.Map;
 @Repository
 public class NoticeDAO implements BoardDAO{
+	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.google.s5.notice.NoticeDAO.";
+	//맨마지막에 .을 붙여줘야 나중에 NAMESPACE에서 .을 안써줄 수 있다.
 	
+	
+	//LIST
 	@Override
 	public List<BoardVO> boardList(Map<String,Integer> map) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(NAMESPACE+"boardList",map);
 	}
-
+	//SELECT
 	@Override
 	public BoardVO boardSelect(long num) throws Exception {
 		// 여기에 있는 변수명이 파라미터 변수명과 같아야 한다
