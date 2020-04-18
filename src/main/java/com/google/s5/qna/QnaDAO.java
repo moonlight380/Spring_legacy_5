@@ -22,7 +22,7 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public long boardCount() throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne(NAMESPACE+"boardCount");
 	}
 		
 	//LIST
@@ -35,31 +35,31 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public BoardVO boardSelect(long num) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"boardSelect", num);
 	}
 	//WRITE
 	@Override
 	public int boardWrite(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAMESPACE+"boardWrite",boardVO);
 	}
 	//DELETE
 	@Override
 	public int boardDelete(long num) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"boardDelete",num);
 	}
 	//UPDATE
 	@Override
 	public int boardUpdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return  sqlSession.update(NAMESPACE+"boardUpdate",boardVO);
 	}
 	//HIT UPDATE
 	@Override
 	public int hitUpdate(long num) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"hitUpdate", num);
 	}
 	
 }

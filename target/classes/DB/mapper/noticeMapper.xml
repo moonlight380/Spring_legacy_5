@@ -40,7 +40,7 @@
 		</delete>
   
   		<update id="boardUpdate" parameterType="com.google.s5.notice.NoticeVO">
-  		UPDATE notice set !--contents =#{contents}, title=#{title} where num=#{num}
+  		UPDATE notice set contents =#{contents}, title=#{title} where num=#{num}
   		</update>
   
   

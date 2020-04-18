@@ -5,22 +5,47 @@
  
  <mapper namespace="com.google.s5.qna.QnaDAO">
  
- 
- <!-- list -->
+ <!-- 전체 글의 개수 -->
+  		<select id="boardCount" resultType="java.lang.Long">
+  		select count(num) from qna
+  		</select>
+  
+  <!-- list -->
  <select id="boardList" parameterType="java.util.Map" resultType="com.google.s5.qna.QnaVO">
- SELECT * FROM QNA
+ select * from
+			(select N.*,rownum R from 
+			(select * from qna  where num>=1
+			 order by num desc) N)
+			where R between #{startRow} and #{lastRow}
  
  </select>
- 
- 
+
  <!-- select -->
- 
+ <select id="boardSelect" parameterType="java.lang.Long" resultType="com.google.s5.qna.QnaVO">
+
+  			 SELECT * from qna where num=#{num}
+  			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 			
+  </select>
  
  <!-- write -->
+ <insert id="boardWrite" parameterType="com.google.s5.qna.QnaVO">
+  			INSERT into qna values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0,0,0,0)
+  			<!-- return 값이 인트인 것은 자동으로 받아준다. -->
+</insert>
  <!-- update -->
- <!-- hitupdate -->
+ <update id="boardUpdate" parameterType="com.google.s5.qna.QnaVO">
+  		UPDATE qna set contents =#{contents}, title=#{title} where num=#{num}
+  </update>
+  
+   <!-- hitupdate -->
+ <update id="hitUpdate" parameterType="java.lang.Long">
+  		UPDATE qna set hit=hit+1 where num=#{num}
+</update>
+
  <!-- delete -->
- 
+ <delete id="boardDelete" parameterType="java.lang.Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
+		delete qna where num=#{num}
+</delete>
  
  
  

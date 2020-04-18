@@ -42,7 +42,7 @@ public class NoticeService implements BoardService {
 	@Override
 	public BoardVO boardSelect(long num) throws Exception {
 		// TODO Auto-generated method stub
-		noticeDAO.hitUpdate(num);
+		noticeDAO.boardSelect(num);
 		return noticeDAO.boardSelect(num);
 	}
 
