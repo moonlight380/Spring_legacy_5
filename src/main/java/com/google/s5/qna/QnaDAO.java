@@ -29,7 +29,7 @@ public class QnaDAO implements BoardDAO {
 	@Override
 	public List<BoardVO> boardList(Map<String, Integer> map) throws Exception {
 		
-		return sqlSession.selectList(NAMESPACE+"qnaList",map);
+		return sqlSession.selectList(NAMESPACE+"boardList",map);
 	}
 	//SELECT
 	@Override

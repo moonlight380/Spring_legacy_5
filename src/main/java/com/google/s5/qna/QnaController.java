@@ -58,8 +58,8 @@ public class QnaController {
 			return mv;
 		}
 		@RequestMapping(value ="qnaWrite", method = RequestMethod.POST)
-		public ModelAndView boardWrite(NoticeVO noticeVO,ModelAndView mv) throws Exception{
-			int result=qnaService.boardWrite(noticeVO);	
+		public ModelAndView boardWrite(QnaVO qnaVO ,ModelAndView mv) throws Exception{
+			int result=qnaService.boardWrite(qnaVO);	
 			//result=0;
 			if(result>0) {
 				mv.setViewName("redirect:./qnaList");
