@@ -47,6 +47,7 @@ public class QnaController {
 		BoardVO boardVO=qnaService.boardSelect(num);
 		ModelAndView mv= new ModelAndView();
 		mv.addObject("vo",boardVO);
+		
 		mv.setViewName("board/boardSelect");//서버내부에서 사용하는 주소 boardSelect로 보내려고 함
 		return mv;
 	}

@@ -40,7 +40,7 @@ public class QnaService implements BoardService {
 	@Override
 	public BoardVO boardSelect(long num) throws Exception {
 		qnaDAO.boardSelect(num);
-		return null;
+		return qnaDAO.boardSelect(num);
 	}
 	//write
 	@Override
