@@ -45,7 +45,15 @@ public MemberVO memberLogin(MemberVO memberVO)throws Exception{
 }
 //MemberMypage
 public MemberVO memberPage(MemberVO memberVO)throws Exception{
-	System.out.println("MEMBERdao IN");
+	
 	return sqlSession.selectOne(NAMESPACE+"memberPage", memberVO);
 }
+
+//MemberUpdate
+public int memberUpdate(MemberVO memberVO)throws Exception{
+	System.out.println("MEMBERdao IN");
+	return sqlSession.update(NAMESPACE+"memberUpdate",memberVO);
+}
+
+
 }

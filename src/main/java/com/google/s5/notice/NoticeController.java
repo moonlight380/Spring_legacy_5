@@ -89,8 +89,8 @@ public class NoticeController {
 	
 	//update
 	@RequestMapping(value = "noticeUpdate", method=RequestMethod.GET)
-	public ModelAndView boardUpdate(long num,Model model,ModelAndView mv) throws Exception {		
-		BoardVO boardVO= noticeService.boardSelect(num);
+	public ModelAndView boardUpdate(long num,Model model,ModelAndView mv,BoardVO boardVO) throws Exception {		
+		int result= noticeService.boardupdate(boardVO);
 		model.addAttribute("vo", boardVO);
 		mv.setViewName("board/boardUpdate");
 		return mv;

@@ -6,11 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.MvcNamespaceHandler;
 
+import com.google.s5.board.BoardVO;
 import com.google.s5.member.memberPage.MemberPage;
 
 @RequestMapping("/member/**")
@@ -59,7 +61,7 @@ public class MemberController {
 	//LOGIN
 		@RequestMapping(value = "memberLogin", method = RequestMethod.GET)
 		public String memberLogin() throws Exception{
-			System.out.println("LOGIN get");
+			
 			return "member/memberLogin";
 		}
 
@@ -81,12 +83,45 @@ public class MemberController {
 
 	//memberPage
 		@RequestMapping(value = "memberPage", method = RequestMethod.GET)
-		public String memberPage( MemberVO memberVO,HttpSession session) throws Exception{
+		public String memberPage( MemberVO memberVO,HttpSession session,ModelAndView mv) throws Exception{
 			session.setAttribute("page", memberVO);
+			mv.addObject("member", memberVO);
 			
-			memberVO= memberService.memberPage(memberVO);
 			return "member/memberPage";
 		}
 
+	//memberUpdate
+		@RequestMapping(value = "memberUpdate", method = RequestMethod.GET)
+		public ModelAndView memberUpdate(MemberVO memberVO)throws Exception{
+			ModelAndView mv = new ModelAndView();
+			System.out.println("memberUpdate get");
+			mv.addObject("member", memberVO);
+			mv.setViewName("member/memberUpdate");
+			return mv;
+			
+		}
+		
+		@RequestMapping(value = "memberUpdate", method = RequestMethod.POST)
+		public String memberUpdate(MemberVO memberVO,ModelAndView mv)throws Exception{
+			System.out.println("member controller post");
+			int result=memberService.memberUpdate(memberVO);
+			String path="";
+			if(result>0) {
+				path="redirect:./memberList";
+				
+			}else {
+				path="redirect:./memberUpdate";
+			}
+			
+			
+			return path;
+		}
+		
+		
+		
+		
+		
+		
+		
 }
 

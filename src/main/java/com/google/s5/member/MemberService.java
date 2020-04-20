@@ -50,4 +50,12 @@ public class MemberService {
 			
 			return memberDAO.memberPage(memberVO);
 		}
+		
+		
+		
+	//Member Update
+		public int memberUpdate(MemberVO memberVO) throws Exception{
+			
+			return memberDAO.memberUpdate(memberVO);
+		}
 }
