@@ -3,15 +3,15 @@ package com.google.s5.board.page;
 public class Pager {
 	
 	//레퍼런스 타입인 롱버전으로 null까지 받기 위해서
-	private Long curPage;
-	private Integer perPage;
-	private long startRow;
-	private long lastRow;
-	
-	private long totalPage; //매개변수로 쓰는 이유는 나중에 꺼내 쓰기 위해서	
-	private long totalBlock;	
-	private long curBlock;
-	private long startNum;
+	private Long curPage; //한페이지 번호 
+	private Integer perPage; // 한페이지 당 출력갯수
+	private long startRow; //시작번호
+	private long lastRow;//마지막번호
+	 //매개변수로 쓰는 이유는 나중에 꺼내 쓰기 위해서	
+	private long totalPage; //총페이지의 수
+	private long totalBlock;	//총 블럭
+	private long curBlock; //현재 블럭
+	private long startNum; //시작 번호 
 	private long lastNum;
 	
 	private String kind;
