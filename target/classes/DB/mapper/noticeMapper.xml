@@ -5,22 +5,60 @@
   
   <mapper namespace="com.google.s5.notice.NoticeDAO">
   		
-  		
+  		<sql id="search">
+  		like '%'||#{search}||'%'
+  		</sql>	
   		<!-- 전체 글의 개수 -->
-  		<select id="boardCount" resultType="java.lang.Long">
-  		select count(num) from notice
+  		<select id="boardCount"  parameterType="com.google.s5.board.page.Pager"  resultType="java.lang.Long">
+  		
+  		
+  		select count(num) from notice 
+  		<where>
+  			<if test="kind=='bt'">
+  				Title <include refid="search"></include>
+  			</if>
+  			
+  			<if test="kind=='bw'">
+  			Writer <include refid="search"></include>
+  			</if>
+  			
+  			<if test="kind=='bc'">
+  			Contents <include refid="search"></include>
+  			</if>
+  			
+  		</where>
+		
+
+  		
   		</select>
 
-   		<select id="boardList" parameterType="java.util.Map"   resultType="com.google.s5.notice.NoticeVO">
-   		select * from
-			(select N.*,rownum R from 
-			(select * from notice  where num>=1
-			 order by num desc) N)
-			where R between #{startRow} and #{lastRow}
-			
+   	<select id="boardList" parameterType="com.google.s5.board.page.Pager" resultType="com.google.s5.notice.NoticeVO">
+		select * from
+			(select N.*, rownum R from
+				(select * from notice where 
+				<choose>
+					<when test="kind == 'bw'">
+						writer
+					</when>
+					
+					<when test="kind=='bt'">
+						title
+					</when>
+					<otherwise>
+						contents
+					</otherwise>
+				
+				</choose>
+				<include refid="search"></include> and num>=1 order by num desc) N)
+				where R between #{startRow} and #{lastRow}
+	</select>
+			<!-- 컬럼명이나 테이블명을 #{}으로 쓸 수 없음, 오로지 값만 가능 -->
+			<!-- 문자열 자체는 자체적으로 홑따옴표가 들어가 있음 
+			1.게터나 세터에 % 를 쓴다
+			2. 합치도록 || 입력-->
    			<!--  select * from notice order by num desc-->
    			<!-- select 문에 나오는 컬럼명과 일치해야 하는 것을 넣어야 한다. -->
-   		</select>
+   		
    		
    		
    		

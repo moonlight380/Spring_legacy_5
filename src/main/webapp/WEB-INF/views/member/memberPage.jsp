@@ -28,11 +28,11 @@
 		</tr>
 		
 				<tr class="info">
-					<td>${sessionScope.member.id}</td> <!-- jsp에서 꺼내는 방법은 el을 통해서 꺼낸다. -->
-					<td>${member.name}</td> <!--  영역별로 같은 이름을 넣는다면 속성명을 써야 한다. 왜냐하면 내장객체 page부터 차례대로 이름을 찾기 때문 -->
-					<td>${member.email}</td>
-					<td>${member.tel}</td>
-					<td>${member.age}</td>
+					<td>${sessionScope.page.id}</td> <!-- jsp에서 꺼내는 방법은 el을 통해서 꺼낸다. -->
+					<td>${page.name}</td> <!--  영역별로 같은 이름을 넣는다면 속성명을 써야 한다. 왜냐하면 내장객체 page부터 차례대로 이름을 찾기 때문 -->
+					<td>${page.email}</td>
+					<td>${page.tel}</td>
+					<td>${page.age}</td>
 				</tr>		
 		
 		</table>	

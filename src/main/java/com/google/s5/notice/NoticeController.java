@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.s5.board.BoardVO;
+import com.google.s5.board.page.Pager;
 
 @Controller
 @RequestMapping("/notice/**")
@@ -30,13 +31,20 @@ public class NoticeController {
 	//noticeList
 	@RequestMapping(value ="noticeList", method = RequestMethod.GET )
 	//밸류에는 요청 url/ 위에 노티스가 있기 때문에 그 아래로 적어주면 됨
-	public ModelAndView boardList(@RequestParam(defaultValue = "1")int curPage, ModelAndView mv) throws Exception{
+	public ModelAndView boardList(Pager pager, ModelAndView mv) throws Exception{	
+		System.out.println("notice controller in");
+		System.out.println("kind:"+pager.getKind());
+		System.out.println("search:"+pager.getSearch());
+		//System.out.println(pager); //참조변수를 찍으면 객체의 주소값이 나옴
+		
 		//매개변수로 받아도 되고 , new해서 받아도 된다.
-		List<BoardVO> ar=noticeService.boardList(curPage);
+		List<BoardVO> ar=noticeService.boardList(pager);
+		
 		//어레이리스트의 부모 리스트
-		System.out.println(curPage);
+		System.out.println(pager.getTotalPage());
 		
 		mv.addObject("list",ar);
+		mv.addObject("pager",pager);
 		/* mv.addObject("board","notice"); 개발자 귀찮 위로 @ModelAttribute("board")이쪽*/
 		mv.setViewName("board/boardList");
 		return mv;	

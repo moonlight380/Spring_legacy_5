@@ -83,6 +83,7 @@ public class noticeDAOTest extends AbstractTestCase{
 		}
 		//List
 		public List<BoardVO> boardList() throws Exception{
+			
 			return noticeDAO.boardList(null);
 		}
 		
