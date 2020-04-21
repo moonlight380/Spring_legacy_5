@@ -2,11 +2,16 @@ package com.google.s5.member;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,7 +51,8 @@ public class MemberController {
 
 		}
 		@RequestMapping(value = "memberJoin", method = RequestMethod.POST)
-		public ModelAndView memberJoin(ModelAndView mv, MemberVO memberVO) throws Exception{
+		public ModelAndView memberJoin(ModelAndView mv, MemberVO memberVO,String avatar) throws Exception{
+			
 			
 			int result = memberService.memberJoin(memberVO);
 			if(result>0) {
@@ -61,13 +67,25 @@ public class MemberController {
 	
 	//LOGIN
 		@RequestMapping(value = "memberLogin", method = RequestMethod.GET)
-		public String memberLogin() throws Exception{
-			
+		public String memberLogin(@CookieValue(value="cId",required = false) String cId, Model model) throws Exception{
+			//꼭 값이 안와도 된다.required = false
+			System.out.println(cId);
+			//model.addAttribute("cId",cId);
 			return "member/memberLogin";
 		}
 
 		@RequestMapping(value = "memberLogin", method =RequestMethod.POST )
-		public ModelAndView memberLogin(ModelAndView mv, MemberVO memberVO, HttpSession session) throws Exception{
+		public ModelAndView memberLogin(String remember,ModelAndView mv, MemberVO memberVO, HttpSession session,HttpServletResponse response) throws Exception{
+			Cookie cookie =  new Cookie("cId", "");//디폴트 생성자 없음
+			
+		if(remember != null) {
+			/* cookie=new Cookie("cId", memberVO.getId()); */
+			cookie.setValue(memberVO.getId());
+		}
+		
+		/* cookie.setMaxAge(0); */
+		/* cookie.setValue(newValue); *///똑같은 쿠키 이름에 값을 다르게 줌
+		response.addCookie(cookie);
 		
 			memberVO= memberService.memberLogin(memberVO);
 			
@@ -82,7 +100,13 @@ public class MemberController {
 			}
 			return mv;
 		}
-
+		
+		@RequestMapping(value = "memberLogout")
+		public String memberLogout(HttpSession session)throws Exception{
+			session.invalidate();
+			return "redirect:../";
+		}
+		
 	//memberPage
 		@RequestMapping(value= "memberPage")
 		public void memberPage() {

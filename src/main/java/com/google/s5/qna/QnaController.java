@@ -130,8 +130,16 @@ public class QnaController {
 		}
 		@PostMapping("qnaReply")
 		public ModelAndView boardReply(ModelAndView mv,QnaVO qnaVO) throws Exception{
-		
-			mv.setViewName("board/boardReply");
+			int result= qnaService.boardReply(qnaVO);
+			
+			if(result>0) {
+				mv.setViewName("redirect:./qnaList");
+			}else {
+				mv.addObject("result","Reply Write Fail");
+				mv.addObject("path","./qnaList");
+				mv.setViewName("common/result");
+			}
+			
 			return mv;
 		}
 		

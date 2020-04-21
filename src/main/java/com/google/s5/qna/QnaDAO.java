@@ -19,6 +19,16 @@ public class QnaDAO implements BoardDAO {
 	private final String NAMESPACE="com.google.s5.qna.QnaDAO."; // 매퍼에 있는 nameSpace와 같은 걸 써두기 끝에 아이디명 연결해야 해서 . 넣기
 	//맨마지막에 .을 붙여줘야 나중에 NAMESPACE에서 .을 안써줄 수 있다.
 	
+	
+	
+	public int boardReplyUpdate(BoardVO boardVO)throws Exception{
+		return sqlSession.update(NAMESPACE+"boardReplyUpdate",boardVO);
+	}
+	 public int boardReply(BoardVO boardVO)throws Exception{
+		 return sqlSession.insert(NAMESPACE+"boardReply",boardVO);
+	 }
+	
+	
 	//COUNT
 	@Override
 	public long boardCount(Pager pager) throws Exception {
@@ -62,5 +72,8 @@ public class QnaDAO implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update(NAMESPACE+"hitUpdate", num);
 	}
+	
+	
+	
 	
 }

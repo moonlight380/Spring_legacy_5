@@ -44,7 +44,16 @@
 			<c:forEach items="${list}" var="vo">
 			<tr>
 			<td>${vo.num}</td>
-			<td><a href="./${board}Select?num=${vo.num}">${vo.title}</a></td>
+			<td>
+			
+			<c:catch>
+			<!-- for(int i=0; i<=0; i++) -->
+			<!-- &nbsp; 스페이스바 -->
+			<c:forEach begin="1" end="${vo.depth}">
+				 - -
+			</c:forEach>
+			</c:catch>
+			<a href="./${board}Select?num=${vo.num}">${vo.title}</a></td>
 			<td>${vo.writer}</td>
 			<td>${vo.regDate}</td>
 			<td>${vo.hit}</td>
@@ -67,12 +76,46 @@
 			<li><a href="./${board}List?curPage=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">다음</a></li>
 		</c:if>
 		</ul>
-		
 		</div>
-		<div>
-		<a href="./${board}Write" class="btn btn-danger">WRITER</a>	
+	
+	
+	<c:catch>
+		<c:choose>
+			<c:when test="${board eq 'notice'}">
+				<c:if test="${member.id eq 'admin' }">
+				<div>
+					<a href="./${board}Write" class="btn btn-danger">WRITE</a>	
+				</div>
+				</c:if>
+			</c:when>
+			
+			<c:otherwise>
+				<c:if test="${not empty member }">
+					<div>
+						<a href="./${board}Write" class="btn btn-danger">WRITE</a>	
+					</div>	
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+	</c:catch>
+	
+	<%-- 	<div>
+			<!-- qna 회원전체/ noticewrite는 member admin만 -->
+			
+			 <c:if test="${not empty member}">
+				 
+				 <c:if test="${member.id eq 'admin' && board eq 'notice'}">
+				<a href="./${board}Write" class="btn btn-danger">WRITE</a>	
+				 </c:if> 
+				 
+				 <c:if test="${board eq 'qna'}">
+				<a href="./${board}Write" class="btn btn-danger">WRITE</a>	
+				 </c:if> 
+				 
+			 </c:if>
+			
 		</div>
-		
+		 --%>
 	</div>
 </div>
 </body>	

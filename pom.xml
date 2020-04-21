@@ -16,6 +16,13 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!--commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+	
 	
 	<!-- mybatis -->
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->

@@ -68,7 +68,24 @@
 		delete qna where num=#{num}
 </delete>
  
+ <update id="boardReplyUpdate"  parameterType="QnaVO">
+ update qna set step=step+1 where 
+ ref=(select ref from qna where num=#{num}) 
+ and
+ step>(select step from qna where num=#{num})
  
+ <!-- step ﻿﻿1. ref 값이 부모의 ref와 같은 것과 step이 부모의 step보다 큰 것들을 step+1 하고 나서 업데이트 -->
+ </update>
+ 
+ 
+ <insert id="boardReply" parameterType="QnaVO">
+		insert into qna values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0,
+		(select ref from qna where num=#{num}),
+		(select step from qna where num=#{num})+1,
+		(select depth from qna where num=#{num})+1
+		)
+	<!-- step ﻿2.  septh+1을 자기자신의 septh -->
+ </insert>
  
  
  

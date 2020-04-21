@@ -13,6 +13,15 @@ import com.google.s5.util.Pager;
 public class QnaService implements BoardService {
 	@Autowired
 	private QnaDAO qnaDAO; //서비스는 디에오에 대해 의존적	
+	
+	
+	
+	public int boardReply(BoardVO boardVO) throws Exception{
+		int result=qnaDAO.boardReplyUpdate(boardVO);
+		result=qnaDAO.boardReply(boardVO);
+		return result;
+	}
+	
 	//list
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {

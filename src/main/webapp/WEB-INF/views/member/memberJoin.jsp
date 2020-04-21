@@ -17,7 +17,7 @@
 <div class="container">
 	
 	<h1>MemmberJoin</h1>
- <form action="./memberJoin" method="post">
+ <form action="./memberJoin" method="post" enctype="multipart/form-data">
 
     <div class="form-group">
       <label for="id">ID:</label>
@@ -43,6 +43,14 @@
       <label for="age">Age:</label>
       <input type="text" class="form-control" id="age" placeholder="Enter age" name="age">
     </div>
+    
+      <div class="form-group">
+      <label for="pic">Avatar:</label>
+      <input type="file" class="form-control" id="avatar" placeholder="Enter Avatar" name="avatar">
+    </div>
+    
+    
+    
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
