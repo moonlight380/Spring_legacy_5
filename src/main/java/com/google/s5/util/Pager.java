@@ -40,7 +40,7 @@ public class Pager {
 		}
 		
 		//3.totalPage 로 totalBlock 계산
-		//totalBlock 다음 출력의 여부, curBlick이 마지막 Block 여부
+		//totalBlock 다음 출력의 여부, curBlock이 마지막 Block 여부
 		long perBlock=5L;   //block page 수
 		this.totalBlock=totalPage/perBlock;
 		if(totalPage%perBlock!=0) {
@@ -52,7 +52,7 @@ public class Pager {
 			this.curBlock++;
 		}
 		
-		//5.curBlcok startNum, lastNum 계산
+		//5.curBlock startNum, lastNum 계산
 		this.startNum=(this.curBlock-1)*perBlock+1;
 		this.lastNum = curBlock*perBlock;
 		
