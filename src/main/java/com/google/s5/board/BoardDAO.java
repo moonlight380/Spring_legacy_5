@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.s5.board.page.Pager;
+import com.google.s5.util.Pager;
 
 public interface BoardDAO {
 	//멤버변수로 상수

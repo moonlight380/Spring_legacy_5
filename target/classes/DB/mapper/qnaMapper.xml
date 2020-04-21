@@ -12,7 +12,7 @@
   
   <!-- list -->
 <!--  <select id="boardList" parameterType="java.util.Map" resultType="com.google.s5.qna.QnaVO"> -->
-  <select id="boardList" parameterType="com.google.s5.board.page.Pager" resultType="com.google.s5.qna.QnaVO">
+  <select id="boardList" parameterType="com.google.s5.util.Pager" resultType="com.google.s5.qna.QnaVO">
  select * from
 			(select N.*,rownum R from 
 			(select * from qna  where num>=1

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.google.s5.member.memberPage.MemberPage;
+import com.google.s5.util.Pager;
 
 
 
@@ -17,7 +18,7 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	
 	//LIST
-	public List<MemberVO> memberList(MemberPage mp) throws Exception {
+	public List<MemberVO> memberList(Pager mp) throws Exception {
 		
 		
 		mp.makeRow();

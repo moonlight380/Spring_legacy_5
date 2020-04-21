@@ -1,4 +1,4 @@
-package com.google.s5.board.page;
+package com.google.s5.util;
 
 public class Pager {
 	
@@ -14,11 +14,14 @@ public class Pager {
 	private long startNum; //시작 번호 
 	private long lastNum;
 	
+	//하나의 단위 블럭 ES) 1-5인데 다음 누르면 6-10
 	private String kind;
 	private String search;
 	
 	
 	public void makeRow() {
+		//curPage로 DB에 일정한 수 조회
+		
 		System.out.println("curpage:"+this.getCurPage());
 		System.out.println(this.getPerPage());
 		this.startRow =((this.getCurPage()-1)*this.getPerPage()+1);
@@ -37,6 +40,7 @@ public class Pager {
 		}
 		
 		//3.totalPage 로 totalBlock 계산
+		//totalBlock 다음 출력의 여부, curBlick이 마지막 Block 여부
 		long perBlock=5L;   //block page 수
 		this.totalBlock=totalPage/perBlock;
 		if(totalPage%perBlock!=0) {

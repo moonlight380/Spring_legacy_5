@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.google.s5.member.memberPage.MemberPage;
+import com.google.s5.util.Pager;
 
 
 
@@ -18,13 +19,13 @@ private  SqlSession sqlSession;
 private final String NAMESPACE="com.google.s5.member.MemberDAO.";
 
 //LIST
-public List<MemberVO> memberList(MemberPage mp) throws Exception {
+public List<MemberVO> memberList(Pager mp) throws Exception {
 	// TODO Auto-generated method stub
 	
 	return sqlSession.selectList(NAMESPACE+"memberList",mp);
 }
 //count
-public long memberCount(MemberPage mp) throws Exception {
+public long memberCount(Pager mp) throws Exception {
 	
 	return sqlSession.selectOne(NAMESPACE+"memberCount", mp);
 

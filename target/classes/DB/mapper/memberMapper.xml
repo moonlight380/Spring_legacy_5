@@ -9,7 +9,7 @@
   		like '%'||#{search}||'%'
   		</sql>	
   		<!-- 전체 글의 개수 -->
-  		<select id="memberCount"  parameterType="com.google.s5.member.memberPage.MemberPage"  resultType="java.lang.Long">
+  		<select id="memberCount"  parameterType="com.google.s5.util.Pager"  resultType="java.lang.Long">
 
   		select count(id) from member 
   		<where>
@@ -33,7 +33,7 @@
 
   		</select>
 <!-- list -->
-   	<select id="memberList" parameterType="com.google.s5.member.memberPage.MemberPage" resultType="com.google.s5.member.MemberVO">
+   	<select id="memberList" parameterType="com.google.s5.util.Pager" resultType="com.google.s5.member.MemberVO">
 		select * from
 			(select N.*, rownum R from
 				(select * from member where 

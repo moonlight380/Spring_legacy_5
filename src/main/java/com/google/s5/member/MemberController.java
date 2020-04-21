@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.MvcNamespaceHandler;
 
 import com.google.s5.board.BoardVO;
 import com.google.s5.member.memberPage.MemberPage;
+import com.google.s5.util.Pager;
 
 @RequestMapping("/member/**")
 @Controller
@@ -25,7 +26,7 @@ public class MemberController {
 	
 	//List
 		@RequestMapping(value ="memberList", method = RequestMethod.GET )
-		public ModelAndView memberList(MemberPage mp, ModelAndView mv,MemberVO memberVO) throws Exception{	
+		public ModelAndView memberList(Pager mp, ModelAndView mv,MemberVO memberVO) throws Exception{	
 
 			List<MemberVO> ar=memberService.memberList(mp);
 
@@ -101,23 +102,42 @@ public class MemberController {
 			
 		}
 		
-		@RequestMapping(value = "memberUpdate", method = RequestMethod.POST)
-		public String memberUpdate(MemberVO memberVO,ModelAndView mv)throws Exception{
-			System.out.println("member controller post");
-			int result=memberService.memberUpdate(memberVO);
-			String path="";
+		@RequestMapping(value= "memberUpdate", method = RequestMethod.POST)
+		public ModelAndView memberUpdate(ModelAndView mv, MemberVO memberVO, HttpSession session) throws Exception {
+			String id = ((MemberVO)session.getAttribute("member")).getId();
+			memberVO.setId(id);
+			
+			int result = memberService.memberUpdate(memberVO);
+			
 			if(result>0) {
-				path="redirect:./memberList";
-				
+				session.setAttribute("member", memberVO);
+				mv.setViewName("redirect:./memberPage");
 			}else {
-				path="redirect:./memberUpdate";
+				 mv.addObject("result", "Update Fail");
+				 mv.addObject("path", "./memberPage");
+				 mv.setViewName("common/result");
 			}
 			
-			
-			return path;
+			return mv;
 		}
 		
-		
+//		@RequestMapping(value= "memberDelete")
+//		public ModelAndView memberDelete(ModelAndView mv, HttpSession session) throws Exception {
+//			MemberVO memberVO = (MemberVO)session.getAttribute("member");
+//			int result = memberService.memberDelete(memberVO);
+//			if(result>0) {
+//				session.invalidate();
+//				mv.addObject("result", "Delete Success");
+//				mv.addObject("path", "../");
+//				mv.setViewName("common/result");
+//			}else {
+//				mv.addObject("result", "Delete Fail");
+//				mv.addObject("path", "../");
+//				mv.setViewName("common/result");
+//			}
+//			
+//			return mv;
+//		}
 		
 		
 		
