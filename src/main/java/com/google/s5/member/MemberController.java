@@ -68,12 +68,13 @@ public class MemberController {
 
 		@RequestMapping(value = "memberLogin", method =RequestMethod.POST )
 		public ModelAndView memberLogin(ModelAndView mv, MemberVO memberVO, HttpSession session) throws Exception{
-			session.setAttribute("member", memberVO);
-			
+		
 			memberVO= memberService.memberLogin(memberVO);
 			
 			if(memberVO!=null) {
 				mv.setViewName("redirect:../");
+				session.setAttribute("member", memberVO); // 순서 주의 하기  로그인 후에 정보를 다 받을 수 있도록
+				
 			}else {
 				mv.addObject("result","Login FAIL");
 				mv.addObject("path","./memberJoin");
@@ -83,25 +84,18 @@ public class MemberController {
 		}
 
 	//memberPage
-		@RequestMapping(value = "memberPage", method = RequestMethod.GET)
-		public String memberPage( MemberVO memberVO,HttpSession session,ModelAndView mv) throws Exception{
-			session.setAttribute("page", memberVO);
-			mv.addObject("member", memberVO);
+		@RequestMapping(value= "memberPage")
+		public void memberPage() {
 			
-			return "member/memberPage";
 		}
 
-	//memberUpdate
-		@RequestMapping(value = "memberUpdate", method = RequestMethod.GET)
-		public ModelAndView memberUpdate(MemberVO memberVO)throws Exception{
-			ModelAndView mv = new ModelAndView();
-			System.out.println("memberUpdate get");
-			mv.addObject("member", memberVO);
-			mv.setViewName("member/memberUpdate");
-			return mv;
+	//memberUpdate	
+		@RequestMapping(value= "memberUpdate")
+		public void memberUpdate() {
 			
 		}
-		
+
+	
 		@RequestMapping(value= "memberUpdate", method = RequestMethod.POST)
 		public ModelAndView memberUpdate(ModelAndView mv, MemberVO memberVO, HttpSession session) throws Exception {
 			String id = ((MemberVO)session.getAttribute("member")).getId();
@@ -121,23 +115,23 @@ public class MemberController {
 			return mv;
 		}
 		
-//		@RequestMapping(value= "memberDelete")
-//		public ModelAndView memberDelete(ModelAndView mv, HttpSession session) throws Exception {
-//			MemberVO memberVO = (MemberVO)session.getAttribute("member");
-//			int result = memberService.memberDelete(memberVO);
-//			if(result>0) {
-//				session.invalidate();
-//				mv.addObject("result", "Delete Success");
-//				mv.addObject("path", "../");
-//				mv.setViewName("common/result");
-//			}else {
-//				mv.addObject("result", "Delete Fail");
-//				mv.addObject("path", "../");
-//				mv.setViewName("common/result");
-//			}
-//			
-//			return mv;
-//		}
+		@RequestMapping(value= "memberDelete")
+		public ModelAndView memberDelete(ModelAndView mv, HttpSession session) throws Exception {
+			MemberVO memberVO = (MemberVO)session.getAttribute("member");
+			int result = memberService.memberDelete(memberVO);
+			if(result>0) {
+			session.invalidate();
+				mv.addObject("result", "Delete Success");
+				mv.addObject("path", "../");
+				mv.setViewName("common/result");
+			}else {
+				mv.addObject("result", "Delete Fail");
+				mv.addObject("path", "../");
+				mv.setViewName("common/result");
+			}
+			
+			return mv;
+		}
 		
 		
 		

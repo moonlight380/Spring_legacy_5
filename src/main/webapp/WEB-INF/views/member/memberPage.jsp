@@ -19,11 +19,11 @@
 	
 		<table class="table table-hover">
 		<tr>
-			<td>아이디</td>
-			<td>이름</td>
-			<td>이메일</td>
-			<td>전화번호</td>
-			<td>나이</td>
+			<td>id</td>
+			<td>name</td>
+			<td>email</td>
+			<td>tel</td>
+			<td>age</td>
 
 		</tr>
 		

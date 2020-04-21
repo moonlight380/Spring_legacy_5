@@ -1,8 +1,6 @@
 package com.google.s5.qna;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,22 +8,20 @@ import org.springframework.stereotype.Service;
 import com.google.s5.board.BoardService;
 import com.google.s5.board.BoardVO;
 import com.google.s5.notice.NoticeDAO;
+import com.google.s5.util.Pager;
 @Service
 public class QnaService implements BoardService {
 	@Autowired
 	private QnaDAO qnaDAO; //서비스는 디에오에 대해 의존적	
 	//list
 	@Override
-	public List<BoardVO> boardList(int curPage) throws Exception {
-		System.out.println("QNA service");
-		int startRow =(curPage-1)*10+1;
-		int lastRow= curPage*10;
-		Map<String,Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("lastRow", lastRow);
+	public List<BoardVO> boardList(Pager pager) throws Exception {
+		pager.makeRow();
+		pager.makePage(qnaDAO.boardCount(pager));
+
 		//--------------------------------------------
 		//1.총 글의 개수
-		long totalCount= qnaDAO.boardCount();
+		long totalCount= qnaDAO.boardCount(pager);
 		System.out.println("totalcount:"+totalCount);
 		
 		//2.총 페이지의 개수
@@ -34,7 +30,7 @@ public class QnaService implements BoardService {
 			totalPage++;
 		}
 		System.out.println("totalpage:"+totalPage);
-		return qnaDAO.boardList(map);
+		return qnaDAO.boardList(pager);
 	}
 	//select
 	@Override

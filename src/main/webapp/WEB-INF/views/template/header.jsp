@@ -12,16 +12,13 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="${pageContext.request.contextPath}">Home</a></li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
+    
       </li>
  <%--  <li><a href="<%=request.getContextPath() %>/point/pointList">Point</a></li> --%>
-      <li><a href="${pageContext.request.contextPath}/member/memberList">MemberList</a></li>
+      <li><a href="${pageContext.request.contextPath}/member/memberList">Member List</a></li>
+      <li><a href="${pageContext.request.contextPath}/qna/qnaList">QnA</a></li>
       <li><a href="${pageContext.request.contextPath}/notice/noticeList">Notice</a></li>
-       <li><a href="${pageContext.request.contextPath}/qna/qnaList">QnA</a></li>
+       
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <c:if test="${empty sessionScope.member}">

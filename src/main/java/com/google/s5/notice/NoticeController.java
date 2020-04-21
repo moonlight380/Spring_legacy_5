@@ -32,7 +32,7 @@ public class NoticeController {
 	@RequestMapping(value ="noticeList", method = RequestMethod.GET )
 	//밸류에는 요청 url/ 위에 노티스가 있기 때문에 그 아래로 적어주면 됨
 	public ModelAndView boardList(Pager pager, ModelAndView mv) throws Exception{	
-		System.out.println("notice controller in");
+		
 		System.out.println("kind:"+pager.getKind());
 		System.out.println("search:"+pager.getSearch());
 		//System.out.println(pager); //참조변수를 찍으면 객체의 주소값이 나옴

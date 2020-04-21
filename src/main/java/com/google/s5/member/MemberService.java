@@ -45,18 +45,13 @@ public class MemberService {
 		return memberDAO.memberLogin(memberVO);
 	}
 	
-	//MEMBER Page
-		public MemberVO memberPage(MemberVO memberVO) throws Exception{
-			System.out.println("memberservice IN");
-			
-			return memberDAO.memberPage(memberVO);
-		}
-		
-		
 		
 	//Member Update
-		public int memberUpdate(MemberVO memberVO) throws Exception{
-			
+		public int memberUpdate(MemberVO memberVO)throws Exception{
 			return memberDAO.memberUpdate(memberVO);
+		}
+		
+		public int memberDelete(MemberVO memberVO) throws Exception{
+			return memberDAO.memberDelete(memberVO);
 		}
 }

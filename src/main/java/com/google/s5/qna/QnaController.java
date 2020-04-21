@@ -7,14 +7,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.s5.board.BoardVO;
-import com.google.s5.notice.NoticeVO;
+
+import com.google.s5.util.Pager;
 
 
 @Controller
@@ -29,51 +32,55 @@ public class QnaController {
 	}
 	
 	//qnaList
-	@RequestMapping(value ="qnaList", method = RequestMethod.GET )
+	@GetMapping("qnaList") //get 방식이면 get 매핑
+	//@RequestMapping(value ="qnaList", method = RequestMethod.GET )
 	//밸류에는 요청 url/ 
-	public ModelAndView boardList(@RequestParam(defaultValue = "1")int curPage, ModelAndView mv) throws Exception{
+	public ModelAndView boardList(Pager pager, ModelAndView mv) throws Exception{
 	
-		List<BoardVO> ar=qnaService.boardList(curPage);
-		System.out.println("qnaCurPage:"+curPage);
-		
-		mv.addObject("list",ar);		
+		List<BoardVO> ar=qnaService.boardList(pager);
+		mv.addObject("list",ar);
+		mv.addObject("pager",pager);
 		mv.setViewName("board/boardList");
 		return mv;	
 	}
 	
-	//qnaSelect
-	@RequestMapping(value ="qnaSelect", method = RequestMethod.GET)
+//qnaSelect
+	@GetMapping("qnaSelect") 
+	//@RequestMapping(value ="qnaSelect", method = RequestMethod.GET)
 	public ModelAndView boardSelect(long num) throws Exception{
 		BoardVO boardVO=qnaService.boardSelect(num);
 		ModelAndView mv= new ModelAndView();
-		mv.addObject("vo",boardVO);
-		
+		mv.addObject("vo",boardVO);		
 		mv.setViewName("board/boardSelect");//서버내부에서 사용하는 주소 boardSelect로 보내려고 함
 		return mv;
 	}
-	//qnaWrite
+//qnaWrite
 		@RequestMapping(value ="qnaWrite", method = RequestMethod.GET)
 		public ModelAndView boardWrite(BoardVO boardVO,ModelAndView mv) throws Exception{
 			
 			mv.setViewName("board/boardWrite");
 			return mv;
 		}
-		@RequestMapping(value ="qnaWrite", method = RequestMethod.POST)
+		@PostMapping("qnaWrite")
 		public ModelAndView boardWrite(QnaVO qnaVO ,ModelAndView mv) throws Exception{
 			int result=qnaService.boardWrite(qnaVO);	
+			String msg="QnA Write FAIL";
 			//result=0;
+			
 			if(result>0) {
-				mv.setViewName("redirect:./qnaList");
-			}else {
-				mv.addObject("result","QNA WRITER FAIL");
-				mv.addObject("path","./qnaList");
-				mv.setViewName("common/result");
+				msg = "Qna Write Success";
 			}
 			
+			mv.addObject("result", msg);
+			mv.addObject("path", "./qnaList");
+			
+			mv.setViewName("common/result");//web-inf 와 view 빼고
 			return mv;
 		}
 			
-		//qnaupdate
+		
+			
+//qnaupdate
 		@RequestMapping(value = "qnaUpdate", method=RequestMethod.GET)
 		public ModelAndView boardUpdate(long num,Model model,ModelAndView mv) throws Exception {		
 			BoardVO boardVO= qnaService.boardSelect(num);
@@ -97,7 +104,7 @@ public class QnaController {
 			return path;		
 		}
 		
-		//delete
+//delete
 		@RequestMapping(value = "qnaDelete", method=RequestMethod.GET)
 		public ModelAndView boardDelete(long num,QnaVO qnaVO,ModelAndView mv) throws Exception {
 			
@@ -114,5 +121,23 @@ public class QnaController {
 			return mv;
 			
 		}
+//reply		
+		@GetMapping("qnaReply")
+		public ModelAndView boardReply(ModelAndView mv,long num) throws Exception{
+			mv.addObject("num", num);   //부모의 글번호
+			mv.setViewName("board/boardReply");
+			return mv;
+		}
+		@PostMapping("qnaReply")
+		public ModelAndView boardReply(ModelAndView mv,QnaVO qnaVO) throws Exception{
+		
+			mv.setViewName("board/boardReply");
+			return mv;
+		}
+		
+		
+		
+		
+		
 }
 //END CLASS

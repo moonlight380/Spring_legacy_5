@@ -9,7 +9,7 @@
   		like '%'||#{search}||'%'
   		</sql>	
   		<!-- 전체 글의 개수 -->
-  		<select id="boardCount"  parameterType="com.google.s5.util.Pager"  resultType="java.lang.Long">
+  		<select id="boardCount"  parameterType="Pager"  resultType="Long">
   		
   		
   		select count(num) from notice 
@@ -32,7 +32,7 @@
   		
   		</select>
 
-   	<select id="boardList" parameterType="com.google.s5.util.Pager" resultType="com.google.s5.notice.NoticeVO">
+   	<select id="boardList" parameterType="Pager" resultType="NoticeVO">
 		select * from
 			(select N.*, rownum R from
 				(select * from notice where 
@@ -62,22 +62,22 @@
    		
    		
    		
-  		<select id="boardSelect" parameterType="java.lang.Long" resultType="com.google.s5.notice.NoticeVO">
+  		<select id="boardSelect" parameterType="Long" resultType="NoticeVO">
 
   			 SELECT * from notice where num=#{num}
   			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 			
   		</select>
   		
-  		<insert id="boardWrite" parameterType="com.google.s5.notice.NoticeVO">
+  		<insert id="boardWrite" parameterType="NoticeVO">
   			INSERT into notice values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0)
   			<!-- return 값이 인트인 것은 자동으로 받아준다. -->
   		</insert>
 
-		<delete id="boardDelete" parameterType="java.lang.Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
+		<delete id="boardDelete" parameterType="Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
 		delete notice where num=#{num}
 		</delete>
   
-  		<update id="boardUpdate" parameterType="com.google.s5.notice.NoticeVO">
+  		<update id="boardUpdate" parameterType="NoticeVO">
   		UPDATE notice set contents =#{contents}, title=#{title} where num=#{num}
   		</update>
   

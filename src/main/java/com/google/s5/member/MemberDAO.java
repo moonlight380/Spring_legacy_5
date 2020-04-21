@@ -52,9 +52,13 @@ public MemberVO memberPage(MemberVO memberVO)throws Exception{
 
 //MemberUpdate
 public int memberUpdate(MemberVO memberVO)throws Exception{
-	System.out.println("MEMBERdao IN");
-	return sqlSession.update(NAMESPACE+"memberUpdate",memberVO);
+	return sqlSession.update(NAMESPACE+"memberUpdate", memberVO);
 }
+
+public int memberDelete(MemberVO memberVO)throws Exception{
+	return sqlSession.delete(NAMESPACE+"memberDelete", memberVO);
+}
+
 
 
 }

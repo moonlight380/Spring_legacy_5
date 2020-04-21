@@ -4,47 +4,67 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.google.s5.qna.QnaDAO">
+ <sql id="search">
+   where 
+  			 <choose>
+  			 	<when test="kind=='bt'"> Title</when>
+  			 	<when test="kind=='bw'">Writer</when>
+	  			 <otherwise>
+	  			 Contents
+	  			 </otherwise>
+  			 </choose>
+  			like '%'||#{search}||'%'
  
- <!-- 전체 글의 개수 -->
-  		<select id="boardCount" resultType="java.lang.Long">
-  		select count(num) from qna
-  		</select>
-  
-  <!-- list -->
-<!--  <select id="boardList" parameterType="java.util.Map" resultType="com.google.s5.qna.QnaVO"> -->
-  <select id="boardList" parameterType="com.google.s5.util.Pager" resultType="com.google.s5.qna.QnaVO">
- select * from
-			(select N.*,rownum R from 
-			(select * from qna  where num>=1
-			 order by num desc) N)
-			where R between #{startRow} and #{lastRow}
+ 
+ </sql>
+ 
+ 	
+   <!-- list -->
+  <select id="boardList" parameterType="Pager" resultType="QnaVO">
+	select * from
+		(select Q.*, rownum R from
+		(select * from qna 
+		<include refid="search"></include>
+		order by ref desc, step asc) Q)
+		where R between #{startRow} and #{lastRow}
  
  </select>
+ 
+ <!-- 전체 글의 개수 -->
+  		<select id="boardCount" parameterType="Pager" resultType="Long">
+		select count(num) from qna
+		<include refid="search"></include>
+		</select>
+  
+
 
  <!-- select -->
- <select id="boardSelect" parameterType="java.lang.Long" resultType="com.google.s5.qna.QnaVO">
-
-  			 SELECT * from qna where num=#{num}
-  			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 			
+ <select id="boardSelect" parameterType="Long" resultType="QnaVO">
+		select * from qna where num=#{num}
+  			
   </select>
  
  <!-- write -->
- <insert id="boardWrite" parameterType="com.google.s5.qna.QnaVO">
-  			INSERT into qna values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0,0,0,0)
-  			<!-- return 값이 인트인 것은 자동으로 받아준다. -->
+ <insert id="boardWrite" parameterType="QnaVO">
+  			INSERT into qna values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,
+  			0,
+  			board_seq.currval,
+  			0,
+  			0)
+  			<!-- currval는 nextval이 먼저 호출 되어야지만 쓸 수 있다. -->
 </insert>
  <!-- update -->
- <update id="boardUpdate" parameterType="com.google.s5.qna.QnaVO">
+ <update id="boardUpdate" parameterType="QnaVO">
   		UPDATE qna set contents =#{contents}, title=#{title} where num=#{num}
   </update>
   
    <!-- hitupdate -->
- <update id="hitUpdate" parameterType="java.lang.Long">
+ <update id="hitUpdate" parameterType="Long">
   		UPDATE qna set hit=hit+1 where num=#{num}
 </update>
 
  <!-- delete -->
- <delete id="boardDelete" parameterType="java.lang.Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
+ <delete id="boardDelete" parameterType="Long"> <!-- 레퍼런트 클래스는 모두 여기에 있음 -->
 		delete qna where num=#{num}
 </delete>
  
