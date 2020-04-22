@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.MvcNamespaceHandler;
 
 import com.google.s5.board.BoardVO;
+import com.google.s5.member.memberFile.MemberFileVO;
 import com.google.s5.member.memberPage.MemberPage;
 import com.google.s5.util.Pager;
 
@@ -51,10 +54,17 @@ public class MemberController {
 
 		}
 		@RequestMapping(value = "memberJoin", method = RequestMethod.POST)
-		public ModelAndView memberJoin(ModelAndView mv, MemberVO memberVO,String avatar) throws Exception{
+		public ModelAndView memberJoin(ModelAndView mv, MemberVO memberVO,	MultipartFile avatar,HttpSession session) throws Exception{
 			
+//			System.out.println("파일업로드 시 실제 이름:"+avatar.getOriginalFilename());
+//			System.out.println("파라미터 이름:" +avatar.getName());
+//			System.out.println("파일의 크기, 단위는 byte:"+avatar.getSize()); //설정한 파일 크기 범위 내에 들어와야 한다.
+//			System.out.println("파일 형식"+avatar.getContentType());
+//			//avatar.getBytes();//
+//					
 			
-			int result = memberService.memberJoin(memberVO);
+			// 변수명을 동일하게 <MultipartFilter avatar>
+			int result = memberService.memberJoin(memberVO, avatar, session);
 			if(result>0) {
 				mv.setViewName("redirect:./memberList");
 			}else {
@@ -109,10 +119,21 @@ public class MemberController {
 		
 	//memberPage
 		@RequestMapping(value= "memberPage")
-		public void memberPage() {
+		public void memberPage(HttpSession session, Model model ) throws Exception {
+			//꺼내오면 OBJECT 라서 형변환
+			MemberVO memberVO=(MemberVO)session.getAttribute("member");
+			MemberFileVO memberFileVO=memberService.fileSelect(memberVO.getId());
+			model.addAttribute("file",memberFileVO);
 			
 		}
-
+	//meberfileDELETE
+		@GetMapping("fileDelete")
+		public String fileDelete(HttpSession session, Model model ) throws Exception {
+			MemberVO memberVO=(MemberVO)session.getAttribute("member");
+			int result=memberService.fileDelete(memberVO.getId(),session);
+			
+			return "redirect:./memberPage";
+		}
 	//memberUpdate	
 		@RequestMapping(value= "memberUpdate")
 		public void memberUpdate() {

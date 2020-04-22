@@ -43,6 +43,12 @@
       <label for="age">Age:</label>
       <input type="text" class="form-control" id="age" placeholder="Enter age" name="age" value="${member.age}">
     </div>
+    
+      <div class="form-group">
+      <label for="avatar">Avatar:</label>
+      <input type="file" class="form-control" id="avatar"  name="avatar" value="">
+    </div>
+    
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>

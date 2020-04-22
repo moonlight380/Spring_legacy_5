@@ -33,6 +33,9 @@
 					<td>${member.email}</td>
 					<td>${member.tel}</td>
 					<td>${member.age}</td>
+					<h1>
+					<div><a href="./fileDelete">FileDelete</a></div>
+					<img alt="" src="../resources/memberUpload/${file.fileName}"></h1>
 				</tr>		
 		
 		</table>	

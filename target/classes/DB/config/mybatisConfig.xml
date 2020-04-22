@@ -10,6 +10,8 @@
   		<typeAlias type="com.google.s5.member.MemberVO" alias="MemberVO"/>
   		<typeAlias type="com.google.s5.util.Pager" alias="Pager"/>
   		<typeAlias type="com.google.s5.qna.QnaVO" alias="QnaVO"/>
+  		<typeAlias type="com.google.s5.member.memberFile.MemberFileVO" alias="MemberFileVO"/>
+  		<typeAlias type="java.lang.String" alias="String"/>
   	</typeAliases>
   
   </configuration>
