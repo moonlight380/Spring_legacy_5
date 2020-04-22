@@ -1,5 +1,7 @@
 package com.google.s5.member;
 
+import com.google.s5.member.memberFile.MemberFileVO;
+
 public class MemberVO {
 
 	
@@ -9,10 +11,16 @@ public class MemberVO {
 	private String email;
 	private String tel;
 	private int age;
-	
+	private MemberFileVO memberFileVO;
 	
 	public String getId() {
 		return id;
+	}
+	public MemberFileVO getMemberFileVO() {
+		return memberFileVO;
+	}
+	public void setMemberFileVO(MemberFileVO memberFileVO) {
+		this.memberFileVO = memberFileVO;
 	}
 	public void setId(String id) {
 		this.id = id;

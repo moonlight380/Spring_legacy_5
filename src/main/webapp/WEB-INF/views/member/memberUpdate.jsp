@@ -48,7 +48,6 @@
       <label for="avatar">Avatar:</label>
       <input type="file" class="form-control" id="avatar"  name="avatar" value="">
     </div>
-    
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>

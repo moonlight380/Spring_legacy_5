@@ -2,9 +2,28 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-   <mapper namespace="com.google.s5.member.MemberDAO">
-   <!-- list -->
+      <mapper namespace="com.google.s5.member.MemberDAO">
+   
+   
+   <resultMap type="MemberVO" id="loginResult">
+   		<id column="Id" property="id"/>
+   		<result column="Pw" property="password"/>
+   		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="tel" property="tel"/>
+		<result column="age" property="age"/>
+		<!-- 1개인 경우 1:1-->
+		<association property="memberFileVO" javaType="MemberFileVO">
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</association>
+	
+	</resultMap>
+   
+   
+   
+   
+   <!-- list 조각-->
    <sql id="search">
   		like '%'||#{search}||'%'
   		</sql>	
@@ -66,8 +85,11 @@
  
  
  <!-- select/login -->
- 	<select id="memberLogin" parameterType="MemberVO"  resultType="MemberVO">
- 	select * from member where id=#{id} and password=#{password}
+ 	<select id="memberLogin" parameterType="MemberVO"  resultMap="loginResult">
+		Select M.*, F.fileName, F.oriName    
+		from member M left join memberFile F
+		on (M.id = F.id)
+		where M.id = #{id} and M.password=#{password}
  	</select>
  
  	
