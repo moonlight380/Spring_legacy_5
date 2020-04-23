@@ -14,8 +14,6 @@ import com.google.s5.util.FileSaver;
 import com.google.s5.util.Pager;
 
 
-
-
 @Service
 public class MemberService {
 	@Autowired
@@ -79,11 +77,13 @@ public class MemberService {
 		}
 		
 		
+//		로그인과정에 담겨있어서 더이상 필요 없음
+//	//fileSelect
+//		public MemberFileVO fileSelect(String id) throws Exception{
+//			return memberFileDAO.fileSelect(id);
+//		}
 		
-	//MemberFileVO	
-		public MemberFileVO fileSelect(String id) throws Exception{
-			return memberFileDAO.fileSelect(id);
-		}
+		
 	//fileDelete	
 		public int fileDelete(String id,HttpSession session) throws Exception{
 			MemberFileVO memberFileVO =memberFileDAO.fileSelect(id);

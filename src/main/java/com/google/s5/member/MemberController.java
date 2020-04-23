@@ -121,9 +121,10 @@ public class MemberController {
 		@RequestMapping(value= "memberPage")
 		public void memberPage(HttpSession session, Model model ) throws Exception {
 			//꺼내오면 OBJECT 라서 형변환
-			MemberVO memberVO=(MemberVO)session.getAttribute("member");
-			MemberFileVO memberFileVO=memberService.fileSelect(memberVO.getId());
-			model.addAttribute("file",memberFileVO);
+			//이미로그인 할 때 session에 담아서 하기 때문에 지워도 된다.
+//			MemberVO memberVO=(MemberVO)session.getAttribute("member");
+//			MemberFileVO memberFileVO=memberService.fileSelect(memberVO.getId());
+//			model.addAttribute("file",memberFileVO);
 			
 		}
 	//meberfileDELETE
