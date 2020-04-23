@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-@Component
+@Component// new fileSaver 해라
 public class FileSaver {
 	
 	//1. 폴더 생성

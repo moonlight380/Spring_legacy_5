@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.google.s5.board.file.BoardFileDAO">
+  
+  <!-- insert -->
+  <insert id="fileInsert" parameterType="BoardFileVO">
+  insert into boardFile values(file_seq.nextval,#{num},#{fileName},#{oriName},#{board})
+  <!-- 원래는 get.name인데 게터 없으면 오류 날 수 있음 -->
+  </insert>
+  
+  </mapper>

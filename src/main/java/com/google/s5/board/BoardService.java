@@ -2,6 +2,8 @@ package com.google.s5.board;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.s5.util.Pager;
 
 public interface BoardService {
@@ -10,7 +12,7 @@ public interface BoardService {
 	//Select
 		public BoardVO boardSelect(long num) throws Exception;
 	//Insert
-		public int boardWrite(BoardVO boardVO) throws Exception;
+		public int boardWrite(BoardVO boardVO,MultipartFile[] files) throws Exception;
 	//Update
 		public int boardupdate(BoardVO boardVO) throws Exception;
 	//Delete

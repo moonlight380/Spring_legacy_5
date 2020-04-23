@@ -44,15 +44,36 @@
   			
   </select>
  
+ 
+ 
+
+  		
+ 
  <!-- write -->
  <insert id="boardWrite" parameterType="QnaVO">
-  			INSERT into qna values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,
+ 
+		 <selectKey keyProperty="num" order="BEFORE" resultType="LONG"><!-- qnaVO에 set num을 해라 --><!-- num의 타입 -->
+		 select board_seq.nextval from dual
+		 </selectKey>
+		 
+  			INSERT into qna values(#{num},#{title},#{writer},#{contents},SYSDATE,
+  			0,
+  			#{num},
+  			0,
+  			0)
+  			
+  				<!-- 	INSERT into qna values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,
   			0,
   			board_seq.currval,
   			0,
   			0)
-  			<!-- currval는 nextval이 먼저 호출 되어야지만 쓸 수 있다. -->
+  			currval는 nextval이 먼저 호출 되어야지만 쓸 수 있다. -->
+
 </insert>
+
+
+  		
+  		
  <!-- update -->
  <update id="boardUpdate" parameterType="QnaVO">
   		UPDATE qna set contents =#{contents}, title=#{title} where num=#{num}

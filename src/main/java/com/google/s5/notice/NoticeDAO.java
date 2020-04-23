@@ -22,6 +22,11 @@ public class NoticeDAO implements BoardDAO{
 	private final String NAMESPACE="com.google.s5.notice.NoticeDAO.";
 	//맨마지막에 .을 붙여줘야 나중에 NAMESPACE에서 .을 안써줄 수 있다.
 	
+	//dual에서 먼저 조회
+	public long boardNum() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"boardNum");
+		//파라미터 없어서 이름만 적어줌.nextval가 온다.
+	}
 	
 	//LIST
 	@Override

@@ -68,8 +68,15 @@
   			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 			
   		</select>
   		
+  		<select id="boardNum" resultType="Long">
+  			select board_seq.nextval from dual
+  		<!-- inset 하기 전에 가상의 테이블에서 먼저 시퀀스 번호를 가져온다 -->
+  		</select>
+  		
   		<insert id="boardWrite" parameterType="NoticeVO">
-  			INSERT into notice values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0)
+  			<!--  INSERT into notice values(board_seq.nextval,#{title},#{writer},#{contents},SYSDATE,0)-->
+  			<!-- 위에서 가상의 테이블로 이미 num을 받아와서 num으로 바꿔준다 -->
+  			INSERT into notice values(#{num},#{title},#{writer},#{contents},SYSDATE,0)
   			<!-- return 값이 인트인 것은 자동으로 받아준다. -->
   		</insert>
 
