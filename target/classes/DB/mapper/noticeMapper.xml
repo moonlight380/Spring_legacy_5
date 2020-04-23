@@ -4,6 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.google.s5.notice.NoticeDAO">
+  		<resultMap type="NoticeVO" id="selectResult">
+  		<id column="num" property="num"/>
+  		<result column="title" property="title"/>
+  		<result column="writer" property="writer"/>
+  		<result column="contents" property="contents" />
+  		<result column="regDate" property="regDate"/>
+  		<result column="hit" property="hit"/>
+  		<!-- 1:N의 관계 --> <!-- 파일이 2개 들어갈 수 있도록 -->
+  		<collection property="boardFileVOs" javaType="List" ofType="BoardFileVO">
+  			<id column="fileNum" property="fileNum"/>
+  			<result column="fileName" property="fileName"/>
+  			<result column="oriName" property="oriName"/>
+  			<result column="board" property="board"/>
+  		</collection>
+  		
+<!--   		<association property="boardFileVOs" javaType="java.util.List">
+  		private List<BoardFileVO> boardFileVOs; 멤버 변수명 적기
+  			<result column="fileNum" property="fileNum"/>
+  			안됨 왜? setfileNum 하는 식으로 하는데 boardfileVOs에서는 없음. 
+  		</association> -->
+  		
+  		
+  		</resultMap>
+  		
+  		
   		
   		<sql id="search">
   		like '%'||#{search}||'%'
@@ -62,10 +87,17 @@
    		
    		
    		
-  		<select id="boardSelect" parameterType="Long" resultType="NoticeVO">
+  		<select id="boardSelect" parameterType="Long" resultMap="selectResult">
 
-  			 SELECT * from notice where num=#{num}
-  			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 			
+  			<!--  SELECT * from notice where num=#{num} -->
+  			<!-- 세미콜론 붙이지 말것(주의) 파라미터 VO 컬럼명 모두 맞추기--> 		
+  			<!-- select해서 두가지가 오는 것은 mapping이 안됨 -->
+			select N.*,F.*
+			from notice N left join boardFile F
+			ON (N.num=F.num)
+			WHERE N.num=#{num} and F.board=1	
+			
+			
   		</select>
   		
   		<select id="boardNum" resultType="Long">

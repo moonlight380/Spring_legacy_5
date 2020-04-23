@@ -7,6 +7,7 @@
   	<typeAliases>
   		<typeAlias type="java.lang.Long" alias="Long"/>
   		<typeAlias type="java.lang.String" alias="String"/>
+  		<typeAlias type="java.util.List" alias="List"/>
   		
   		<typeAlias type="com.google.s5.notice.NoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.google.s5.member.MemberVO" alias="MemberVO"/>

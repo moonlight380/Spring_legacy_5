@@ -67,7 +67,7 @@ public class QnaService implements BoardService {
 		//2.qna table insert
 		//mapper에서 함
 		//3.Hdd에 파일 저장하고 boardFile table insert
-		String path = servletContext.getRealPath("/resources/uploadQna");
+		String path = servletContext.getRealPath("/resources/uploadqna");
 	
 		for(MultipartFile file:files) {
 			BoardFileVO boardFileVO = new BoardFileVO(); // 한번 돌때마다 새로운 파일

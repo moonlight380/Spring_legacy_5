@@ -39,6 +39,7 @@ public class NoticeDAO implements BoardDAO{
 	@Override
 	public BoardVO boardSelect(long num) throws Exception {
 		// 여기에 있는 변수명이 파라미터 변수명과 같아야 한다
+		//파일이 2개 이상 나와서 selectList로 바꿔야 한다.->mapper에서 하나만 받을 수 있도록
 		return sqlSession.selectOne(NAMESPACE+"boardSelect", num);
 		
 	}

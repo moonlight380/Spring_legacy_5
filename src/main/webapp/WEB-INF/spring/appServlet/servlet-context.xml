@@ -14,12 +14,22 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
+	
+	<!-- 어떤 종류의 화면으로 볼 것인가 -->
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 사용자가 만드는 커스텀 뷰를 만들 것->util에 FileDown 클래스 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"></beans:property>
 	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"></beans:property>
+	</beans:bean>
+	<!-- 리턴되는 bean의 이름을 찾아라 -->
+	<!-- value 값이 낮을 수록 우선 순위가 높아서 0이라고 한 것 -->
+	<!-- 파일다운이라는 메서드가 있으면 파일메서드로 가고 없으면 위의 jsp 파일로  -->
 	
 	<context:component-scan base-package="com.google.s5" />
 	

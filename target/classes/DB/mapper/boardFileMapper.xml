@@ -10,5 +10,9 @@
   insert into boardFile values(file_seq.nextval,#{num},#{fileName},#{oriName},#{board})
   <!-- 원래는 get.name인데 게터 없으면 오류 날 수 있음 -->
   </insert>
+  <!-- select -->
   
+  <select id="fileSelect" parameterType="BoardFileVO" resultType="BoardFileVO">
+  select * from boardFile where fileNum=#{fileNum} and board=#{board}
+  </select>
   </mapper>

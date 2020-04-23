@@ -61,7 +61,7 @@ public class NoticeService implements BoardService {
 	@Override
 	public int boardWrite(BoardVO boardVO,MultipartFile[] files) throws Exception {
 		// TODO Auto-generated method stub
-		String path = servletContext.getRealPath("/resources/uploadNotice");
+		String path = servletContext.getRealPath("/resources/uploadnotice");
 		//String path = session.getServletContext().getRealPath("/resources/noticeUpload");
 		System.out.println(path);
 		

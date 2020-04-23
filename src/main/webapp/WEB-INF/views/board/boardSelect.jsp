@@ -10,15 +10,6 @@
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>
-<%-- <div class="container">
-<div class="row">
-	<h1>TITLE:${vo.title}</h1>
-	<h1>WRTIER:${vo.writer}</h1>
-	<h1>CONTENTS:${vo.contents}</h1>
-	<h1>DATE:${vo.regDate}</h1>
-	<h1>HIT:${vo.hit}</h1>
-</div> 
-</div>--%>
 
 <div class="container">
   <div class="panel panel-default">
@@ -39,6 +30,18 @@
   <div class="panel panel-default">
   <div class="panel-body">${vo.regDate}</div>
 </div>
+
+	<!-- 이미지가 여러개 이므로 반복문 -->	
+		<div>
+		<c:forEach items="${vo.boardFileVOs}" var="file">
+			<div>
+			   <a href="../boardFile/fileDown?fileNum=${file.fileNum}&board=${file.board}">${file.oriName}</a>
+			</div>
+		</c:forEach>
+		</div>
+	
+
+
 
 <div>
 	<a href="./${board }Update?num=${vo.num}"  class="btn btn-danger">Update</a>
