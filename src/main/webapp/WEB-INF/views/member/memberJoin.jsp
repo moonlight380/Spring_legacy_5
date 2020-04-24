@@ -23,7 +23,6 @@
       <label for="id">ID:</label>
       <input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
       
-      <button id="id1">아이디중복</button>
       
     </div>
     <div class="form-group">

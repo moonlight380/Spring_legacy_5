@@ -34,10 +34,10 @@ public class MemberController {
 	
 	
 	//memberIdCheck
-	/*
-	 * @GetMapping("memberIdCheck") public void memberIdCheck() throws Exception {
-	 * //void면 url 경로가 뷰의 이름이 된다. }
-	 */
+	
+	
+	  //void면 url 경로가 뷰의 이름이 된다. 
+	 
 	@PostMapping("memberIdCheck")
 	public ModelAndView memberIdCheck(ModelAndView mv,MemberVO memberVO) throws Exception{	
 		memberVO=memberService.memberIdCheck(memberVO);
