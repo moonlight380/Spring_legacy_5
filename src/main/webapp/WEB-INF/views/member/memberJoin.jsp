@@ -22,6 +22,9 @@
     <div class="form-group">
       <label for="id">ID:</label>
       <input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
+      
+      <button id="id1">아이디중복</button>
+      
     </div>
     <div class="form-group">
       <label for="password">PASSWORD:</label>
@@ -54,9 +57,22 @@
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
-
+<!-- 왜 에이작스를 이용하느냐 다른데이터를 다 쓰고 아이디 검사하면 데이터 다 날아감 -->
 <script type="text/javascript">
-console.log("log");
-</script>	
+	$("#id").blur(function(){
+	var id=$("#id").val();
+	$.post("./memberIdCheck", {id:id}, function(data) {
+		alert(data);
+	/* 	 id1=id1.trim();
+		
+		if(result=="1"){
+			location.reload(); //함수호출
+		}else{
+			alert("아이디 중복");
+		}  */
+
+	});
+	});
+</script>
 </body>
 </html>

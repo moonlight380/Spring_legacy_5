@@ -51,6 +51,15 @@
   		</where>
 
   		</select>
+  	
+  	
+  <!-- "memberIdCheck -->	
+  <select id="memberIdCheck" parameterType="MemberVO" resultType="MemberVO" >
+  select id from member where id=#{id}
+  <!--  String 타입을 파라미터 타입으로 쓰면 버그가 올 수 있다. -->
+  </select>
+  
+  
 <!-- list -->
    	<select id="memberList" parameterType="Pager" resultType="MemberVO">
 		select * from

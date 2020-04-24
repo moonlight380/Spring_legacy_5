@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.s5.board.BoardVO;
 import com.google.s5.member.memberFile.MemberFileDAO;
 import com.google.s5.member.memberFile.MemberFileVO;
 import com.google.s5.util.FileSaver;
@@ -22,6 +23,12 @@ public class MemberService {
 	private FileSaver fileSaver;
 	@Autowired
 	private MemberFileDAO memberFileDAO;
+	
+	// memberIdCheck	
+	public MemberVO memberIdCheck(MemberVO memberVO)throws Exception{
+		return memberDAO.memberIdCheck(memberVO);
+	}
+	
 	
 	//LIST
 	public List<MemberVO> memberList(Pager mp) throws Exception {

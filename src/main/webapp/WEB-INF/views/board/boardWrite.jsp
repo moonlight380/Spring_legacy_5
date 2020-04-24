@@ -13,7 +13,7 @@
 <c:import url="../template/header.jsp"></c:import>
 
 <div class="container">
-<form action="./${board}Write" method="post" enctype="multipart/form-data" >
+<form action="./${board}Write" method="post" enctype="multipart/form-data" id="frm">
 
     <div class="form-group">
       <label for="title">title:</label>
@@ -21,7 +21,8 @@
     </div>
    <div class="form-group">
       <label for="writer">writer:</label>
-      <input type="text" class="form-control" id="writer" placeholder="Enter writer" name="writer" >
+      <input type="text" class="form-control" id="writer" placeholder="Enter writer" value="${member.id}" readonly="readonly" name="writer" >
+      <!-- 밸류값을 줘서 로그인 하고 들어가야 함 -->
     </div>
 
    <div class="form-group" >
@@ -29,31 +30,26 @@
 		    <textarea rows="20" cols="" class="form-control" id="contents" name="contents"></textarea>
 	</div> 
 	
+	<!-- 이 버튼을 클릭하면 파일 추가하는 버튼이 생기는 것 -->
+		<input type="button" id="add" class="btn btn-info" value="AddFile">
+		<div id="file">
+			
+		</div>
+	<!-- 		
+	contents Server null이 될 때  위의 name에 콘텐츠가 있는 것을 뺀다.
+	<input type="hidden" name="contents" id="con">
+	 -->
 	
-	<div class="form-group" >
-		    <label for="files">Files:</label>
-		   <input type="file" class="form-control" name="files">
-		   <input type="file" class="form-control" name="files">
-	</div> 
 	
-	
-
-    <input type="submit" class="btn btn-default">Submit</input>
+    <input type="button" id="btn" class="btn btn-default">Submit</input>
   </form>
 
 </div>
 
-<script type="text/javascript">
-	//$("선택자").action();
-	$("#contents").summernote({
-		height: 400,                 
-		minHeight: null,            
-		maxHeight: null,             
-		focus: true    
-		
-	});
-	
-	
+
+<!-- 경로를 준다. -->
+<script type="text/javascript" src="../resources/js/boardForm.js">
+
 </script>
 </body>
 </html>

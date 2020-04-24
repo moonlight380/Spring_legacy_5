@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.google.s5.board.BoardVO;
 import com.google.s5.member.memberPage.MemberPage;
 import com.google.s5.util.Pager;
 
@@ -59,6 +59,9 @@ public int memberDelete(MemberVO memberVO)throws Exception{
 	return sqlSession.delete(NAMESPACE+"memberDelete", memberVO);
 }
 
-
+//memberIdCheck
+public MemberVO memberIdCheck(MemberVO memberVO)throws Exception{
+	return sqlSession.selectOne(NAMESPACE+"memberIdCheck", memberVO);
+}
 
 }

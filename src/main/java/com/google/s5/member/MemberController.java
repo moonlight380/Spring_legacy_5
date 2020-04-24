@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,33 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	
+	//memberIdCheck
+	/*
+	 * @GetMapping("memberIdCheck") public void memberIdCheck() throws Exception {
+	 * //void면 url 경로가 뷰의 이름이 된다. }
+	 */
+	@PostMapping("memberIdCheck")
+	public ModelAndView memberIdCheck(ModelAndView mv,MemberVO memberVO) throws Exception{	
+		memberVO=memberService.memberIdCheck(memberVO);
+		//null -> 가입이 가능한 아이디 //1
+		//null 이 아니면  -> 중복//0
+		//1과 0을 어딘가에서 출력을 받아주고 그걸 다시 받으면 된다.
+		
+		int result=0;
+		if(memberVO== null) {	
+			result=1;
+		}
+		
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		
+		
+		return mv;
+	}
+	
+	
 	
 	
 	//List

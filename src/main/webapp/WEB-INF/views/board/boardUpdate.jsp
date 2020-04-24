@@ -32,14 +32,20 @@
 		<textarea rows="5" cols="" class="form-control" id="contents" name="contents">${vo.contents}</textarea>
 	</div> 
 
-	  
+<!-- 	  <input type="button" id="add" class="btn btn-info" value="AddFile">
+		<div id="file">
+			
+		</div> -->
 
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 
 </div>
 
-<script type="text/javascript">
+
+
+<!-- <script type="text/javascript" src="../resources/js/boardForm.js"> -->
+<script type="text/javascript" ">
 	//$("선택자").action();
 	$("#contents").summernote({
 		height: 400,                 

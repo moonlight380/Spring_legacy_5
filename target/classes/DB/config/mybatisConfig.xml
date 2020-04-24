@@ -16,6 +16,8 @@
   		<typeAlias type="com.google.s5.member.memberFile.MemberFileVO" alias="MemberFileVO"/>
   		
   		<typeAlias type="com.google.s5.board.file.BoardFileVO" alias="BoardFileVO"/>
+  		
+  		<typeAlias type="com.google.s5.memo.MemoVO" alias="MemoVO"/>
   	</typeAliases>
   
   </configuration>

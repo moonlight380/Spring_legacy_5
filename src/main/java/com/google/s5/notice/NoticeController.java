@@ -1,7 +1,9 @@
 package com.google.s5.notice;
 
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,10 +75,17 @@ public class NoticeController {
 	}
 	//noticeWrite_post
 	@RequestMapping(value ="noticeWrite", method = RequestMethod.POST)
-	public ModelAndView boardWrite(NoticeVO noticeVO, ModelAndView mv, MultipartFile[] files) throws Exception{
+	public ModelAndView boardWrite(HttpServletRequest request,NoticeVO noticeVO, ModelAndView mv, MultipartFile[] files) throws Exception{
 //		for(MultipartFile file:files) {
 //			System.out.println(file.getOriginalFilename());
 //		}
+//		//파라미터 이름 알아보기<버그>
+//		Enumeration<String> er=request.getParameterNames();
+//		//몇개들어간지 알 수 없기 때문<버그>
+//		while(er.hasMoreElements()) {
+//			System.out.println(er.nextElement());
+//		}
+//		
 		
 		int result=noticeService.boardWrite(noticeVO,files);	
 		//result=0;
