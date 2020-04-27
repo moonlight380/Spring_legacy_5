@@ -30,7 +30,7 @@
 		    <textarea rows="20" cols="" class="form-control" id="contents" name="contents"></textarea>
 	</div> 
 	
-	<!-- 이 버튼을 클릭하면 파일 추가하는 버튼이 생기는 것 -->
+	<!-- 이 버튼을 클릭하면 파일 추가하는 버튼이 생기는 것 // 받을 때는 배열로 받음-->
 		<input type="button" id="add" class="btn btn-info" value="AddFile">
 		<div id="file">
 			

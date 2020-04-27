@@ -56,22 +56,49 @@
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>
+
+
 <!-- 왜 에이작스를 이용하느냐 다른데이터를 다 쓰고 아이디 검사하면 데이터 다 날아감 -->
 <script type="text/javascript">
-	$("#id").blur(function(){
-	var id=$("#id").val();
-	$.post("./memberIdCheck", {id:id}, function(data) {
+$("#id").blur(function() {
+	var id = $("#id").val();
+
+	$.ajax({
+		type: "post",	//method 형식
+		url : "./memberIdCheck", //URL 주소
+		data : {
+			id: id
+		},	//parameter
+		success: function(data){
+			alert(data);
+		},
+		error : function() {
+			alert("error 발생");
+		}
+
+	});
+	
+});
+
+
+	/* $.post("./memberIdCheck", {id:id}, function(data) {
 		alert(data);
-	/* 	 id1=id1.trim();
+		 */
 		
-		if(result=="1"){
+//////////////////////////////////////////////////////////////////////////
+
+/* 	 	/*  id1=id1.trim(); */
+		
+/* 		if(result=="1"){
 			location.reload(); //함수호출
 		}else{
 			alert("아이디 중복");
-		}  */
+		}  
 
 	});
-	});
+	}); */
+	
+	
 </script>
 </body>
 </html>

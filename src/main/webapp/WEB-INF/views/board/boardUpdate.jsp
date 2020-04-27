@@ -36,7 +36,16 @@
 		<div id="file">
 			
 		</div> -->
-
+	  <div class="form-group" >
+		  	<label for="files">Files:</label>
+		  	<c:forEach items="${vo.boardFileVOs}" var="fileVO">
+			  	<p>${fileVO.oriName}<i id="${fileVO.fileNum }" class="glyphicon glyphicon-remove remove fileDelete"></i></p>
+		  	
+		  	</c:forEach>
+		  	
+		  	
+		  </div>
+	
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 
@@ -54,6 +63,17 @@
 		focus: true    
 		
 	});
+	
+	$(".fileDelete").click(function(){
+		$.post("../boardFile/fileDelete",{fileNum:$this.attr("id")},function(data){
+			alert(data);
+		});
+
+	});
+	
+
+	
+	
 	
 	
 </script>

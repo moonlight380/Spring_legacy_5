@@ -1,5 +1,6 @@
 package com.google.s5.member;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -58,8 +59,20 @@ public class MemberController {
 	}
 	
 	
-	
-	
+	@GetMapping(value = "memberCheck")
+	public ModelAndView memberCheck(ModelAndView mv,MemberVO memberVO)throws Exception{
+		mv.setViewName("member/memberList");
+		return mv;	
+	}
+	//memberLists
+	@GetMapping("memberLists")
+	public ModelAndView memberLists(Pager pager, ModelAndView mv )throws Exception{
+		List<MemberVO> ar = memberService.memberList(pager);
+		mv.addObject("mlist",ar);
+		mv.addObject("pager",pager);
+		mv.setViewName("member/memberLists");
+		return mv;
+	}
 	//List
 		@RequestMapping(value ="memberList", method = RequestMethod.GET )
 		public ModelAndView memberList(Pager mp, ModelAndView mv,MemberVO memberVO) throws Exception{	
@@ -188,7 +201,7 @@ public class MemberController {
 			
 			return mv;
 		}
-		
+//memberDelete		
 		@RequestMapping(value= "memberDelete")
 		public ModelAndView memberDelete(ModelAndView mv, HttpSession session) throws Exception {
 			MemberVO memberVO = (MemberVO)session.getAttribute("member");
@@ -207,9 +220,27 @@ public class MemberController {
 			return mv;
 		}
 		
+//@GetMapping(value="memberDeletes")
+//﻿멤버 컨트롤러에 주소가 멤버딜리츠가 넘어오는 것을 받아서 넘어온 파라미터가 뭐뭐뭐 넘어왔는지 콘솔창에 찍어보기
+		@GetMapping("memberDeletes")
+		public ModelAndView memberDeletes(ModelAndView mv,String [] ids)throws Exception{
+			//배열을 list로 변환
+			List<String> list = Arrays.asList(ids);
+			int result = memberService.memberDeletes(list);
+			System.out.println(result);
+			mv.addObject("result",result);
+			mv.setViewName("common/ajaxResult");
+			/*
+			 * for(String id: ids){ MemberVO memberVO = new MemberVO(); memberVO.setId(id);
+			 * memberService.memberDelete(memberVO); //System.out.println(id);//찍히지 않음.
+			 * 파라미터는 보냈지만 ->jquery ajax 배열 전송->traditional:true }
+			 */
+			
+			return mv;
+
+		}
 		
-		
-		
+
 		
 }
 

@@ -13,7 +13,7 @@
 
 
 <div class="container">
-	
+	<h1>${member.memberFileVO.oriName}</h1>
 	<h1>UPDATE PAGE</h1>
  <form action="./memberUpdate" method="post">
 
@@ -39,6 +39,8 @@
       <label for="tel">TEL:</label>
       <input type="tel" class="form-control" id="tel" placeholder="Enter tel" name="tel" value="${member.tel}">
     </div>
+    
+    
     <div class="form-group">
       <label for="age">Age:</label>
       <input type="text" class="form-control" id="age" placeholder="Enter age" name="age" value="${member.age}">
@@ -46,8 +48,13 @@
     
       <div class="form-group">
       <label for="avatar">Avatar:</label>
-      <input type="file" class="form-control" id="avatar"  name="avatar" value="">
+      <!-- 인풋타입에는 밸류가 들어가지 않음 -->
+      <input type="file" class="form-control" id="avatar"  name="avatar" value="${member.memberFileVO.oriName}">
     </div>
+    
+    
+    
+    
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>

@@ -74,6 +74,7 @@ public class NoticeService implements BoardService {
 		
 		
 		for(MultipartFile file:files) {
+			if(file.getSize()>0) {
 			BoardFileVO boardFileVO = new BoardFileVO(); // 한번 돌때마다 새로운 파일
 			String fileName=fileSaver.saveByTransfer(file, path);
 			boardFileVO.setNum(boardVO.getNum());
@@ -82,6 +83,7 @@ public class NoticeService implements BoardService {
 			boardFileVO.setBoard(1);
 			
 			boardFileDAO.fileInsert(boardFileVO); //파일의 갯수만큼이라서 반복문 안에
+		}
 		}
 		return result;//noticeDAO.boardWrite(boardVO);
 	}

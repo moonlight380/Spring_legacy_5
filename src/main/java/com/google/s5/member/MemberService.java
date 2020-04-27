@@ -102,4 +102,9 @@ public class MemberService {
 			return result;
 		}
 		
+	//memberDeletes
+		public int memberDeletes(List<String> list) throws Exception{
+			return memberDAO.memberDeletes(list);
+		}
+		
 }
