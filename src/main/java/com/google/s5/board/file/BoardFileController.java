@@ -16,15 +16,14 @@ public class BoardFileController {
 	private BoardFileService boardFileService;
 	
 	@PostMapping("fileDelete")
-	public ModelAndView fileDelete(long fileNum) throws Exception{
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView fileDelete(long fileNum)throws Exception{
+		ModelAndView mv = new ModelAndView();	
+		int result = boardFileService.fileDelete(fileNum);
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
 		
-		System.out.println(fileNum);
-		return mv;
+		return mv;		
 	}
-	
-	
-	
 	
 	@GetMapping("fileDown")
 	public ModelAndView fileDown(BoardFileVO boardFileVO) throws Exception{

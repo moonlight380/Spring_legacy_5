@@ -64,11 +64,21 @@
 		
 	});
 	
-	$(".fileDelete").click(function(){
-		$.post("../boardFile/fileDelete",{fileNum:$this.attr("id")},function(data){
-			alert(data);
-		});
-
+	
+	$(".fileDelete").click(function() {
+		
+		var s = $(this);
+		
+		$.post("../boardFile/fileDelete", {fileNum:$(this).attr("id")}, function(data) {
+			
+			
+			if(data.trim()>0){
+				alert("success");
+				s.parent().remove();
+			}else {
+				alert("File Delete Fail");
+			}
+		} );
 	});
 	
 

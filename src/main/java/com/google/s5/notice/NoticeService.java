@@ -83,7 +83,7 @@ public class NoticeService implements BoardService {
 			boardFileVO.setBoard(1);
 			
 			boardFileDAO.fileInsert(boardFileVO); //파일의 갯수만큼이라서 반복문 안에
-		}
+			}
 		}
 		return result;//noticeDAO.boardWrite(boardVO);
 	}

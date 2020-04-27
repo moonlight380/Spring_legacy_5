@@ -17,8 +17,8 @@
   </select>
   
   
-  <select id="fileDelete" parameterType="long" resultType="long">
-  delete * from boardFile where fileNum=#{fileNum};
+  <select id="fileDelete" parameterType="Long" >
+  delete boardFile where fileNum=#{fileNum}
   
   </select>
   
