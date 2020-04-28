@@ -56,9 +56,16 @@ $("#contents").summernote({
 	maxHeight: null,             
 	focus: true,
 	callbacks:{
-		onImageUpload: function(files) {  
+		onImageUpload: function(file) {  
+			 $.ajax({
+				type="POST",
+				url:"../boardFile/fileInsert",
+				enctype:"multipart/form-data",
+				cache:false,
+				processData:false,
+				success:function(imageName){}
+				})
 			 
-			 console.log("uplode");
 		 }
 	}
 });
