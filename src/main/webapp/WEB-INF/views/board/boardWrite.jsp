@@ -47,9 +47,22 @@
 </div>
 
 
-<!-- 경로를 준다. -->
-<script type="text/javascript" src="../resources/js/boardForm.js">
+<!-- 썸머노트경로를 준다. -->
+<script type="text/javascript" src="../resources/js/boardForm.js"> </script>
+<!-- <script type="text/javascript">
+$("#contents").summernote({
+	height: 400,                 
+	minHeight: null,            
+	maxHeight: null,             
+	focus: true,
+	callbacks:{
+		onImageUpload: function(files) {  
+			 
+			 console.log("uplode");
+		 }
+	}
+});
+</script> -->
 
-</script>
 </body>
 </html>

@@ -34,13 +34,35 @@
 		height: 400,                 
 		minHeight: null,            
 		maxHeight: null,             
-		focus: true    
+		focus: true,
+		callbacks:{
+			onImageUpload: function(files) {  
+				
+				//$.get은 get이 아니라서 못씀
+				//$.post는 enc 타입을 못보냄
+				//이미지 업로드 버튼을 눌러서 이미지 추가 하면 url에 주소로 가서 하드 디스트에 저장 
+				//저장된 이미지를 다시 imageName으로 보냄
+				//image테그를 써서 이미지를 보낼 것
+				$.ajax({
+					type:"POST",
+					url:"../boardFile/fileInsert",
+					enctype:"multipart/form-data",
+					cache:false,
+					contentType:false,
+					processData:false,
+					success:function(imageName){
+						
+					}
+				});
+			 }
+		}
 	});
+	
 	//제이쿼리
 	$("#btn").click(function(){
 		/* //title,contents 데이터 유무 검증 */
 		var title=$("#title").val();
-		contents =$("#contents").summernote('code');  //summernote로 하고 있을 때 
+		//var contents =$("#contents").summernote('code');  //summernote로 하고 있을 때 
 		
 		
 		/* //반복문 */
