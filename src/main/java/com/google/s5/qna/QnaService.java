@@ -85,7 +85,7 @@ public class QnaService implements BoardService {
 	
 	
 	//update
-	@Override
+	
 	public int boardupdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
 		return qnaDAO.boardUpdate(boardVO);
@@ -95,6 +95,12 @@ public class QnaService implements BoardService {
 	public int boardDelete(long num) throws Exception {
 		// TODO Auto-generated method stub
 		return qnaDAO.boardDelete(num);
+	}
+
+	@Override
+	public int boardupdate(BoardVO boardVO, MultipartFile[] files) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

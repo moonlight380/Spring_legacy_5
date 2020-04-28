@@ -1,5 +1,6 @@
 package com.google.s5.notice;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class NoticeService implements BoardService {
 	//List
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {
-		System.out.println("notice service in");
+		
 		//int startRow =(pager.-1)*10+1;
 		//int lastRow= curPage*10;
 		//Map<String,Integer> map = new HashMap<String, Integer>();
@@ -88,16 +89,56 @@ public class NoticeService implements BoardService {
 		return result;//noticeDAO.boardWrite(boardVO);
 	}
 		
-
+	//파일 수정하고 다시 올리기
 	@Override
-	public int boardupdate(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return noticeDAO.boardUpdate(boardVO);
-	}
+	public int boardupdate(BoardVO boardVO,MultipartFile[] files) throws Exception {
+		//HDD file save
+		String path = servletContext.getRealPath("/resources/uploadnotice");
 
+		int result = noticeDAO.boardUpdate(boardVO);
+		for(MultipartFile multipartFile:files) {
+			String name=fileSaver.saveByUtils(multipartFile, path);
+			System.out.println(name);
+			
+			if(multipartFile.getSize()>0) {
+			BoardFileVO boardFileVO = new BoardFileVO(); // 한번 돌때마다 새로운 파일
+			
+			boardFileVO.setFileName(fileSaver.saveByTransfer(multipartFile, path));
+			boardFileVO.setOriName(multipartFile.getOriginalFilename());
+			boardFileVO.setNum(boardVO.getNum());
+		
+			boardFileVO.setBoard(1);
+			
+			result=boardFileDAO.fileInsert(boardFileVO); //파일의 갯수만큼이라서 반복문 안에// 디비에 저장
+			}
+		}
+		return result;
+	}
+	
+	
+// boardDelete
 	@Override
 	public int boardDelete(long num) throws Exception {
-		// TODO Auto-generated method stub
+			List<BoardFileVO> list =boardFileDAO.fileList(num);
+			//1.HDD에 해당 파일들을 삭제
+			String path = servletContext.getRealPath("/resources/uploadnotice");
+			System.out.println(path);
+			
+			for(BoardFileVO boardFileVO:list) {
+				FileSaver fileSaver= new FileSaver();
+				fileSaver.deleteFile(boardFileVO.getFileName(),path);
+				}
+
+			
+			//2.DB에서 삭제
+			int result=boardFileDAO.fileDeleteAll(num);
+			if(result>0) {
+				System.out.println("성공");
+			}else{
+				System.out.println("실패");
+			}
+			
+			
 		return noticeDAO.boardDelete(num);
 	}
 

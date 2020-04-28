@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.google.s5.board.BoardDAO;
 import com.google.s5.board.BoardVO;
+import com.google.s5.board.file.BoardFileVO;
 import com.google.s5.util.Pager;
 
 import java.util.Map;
@@ -78,6 +79,7 @@ public class NoticeDAO implements BoardDAO{
 		
 		return sqlSession.selectOne(NAMESPACE+"boardCount", pager);
 	}
+
 
 
 

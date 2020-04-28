@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.s5.board.BoardVO;
+import com.google.s5.board.file.BoardFileVO;
 import com.google.s5.util.Pager;
 
 @Controller
@@ -103,16 +104,29 @@ public class NoticeController {
 	
 	//update
 	@RequestMapping(value = "noticeUpdate", method=RequestMethod.GET)
-	public ModelAndView boardUpdate(long num,ModelAndView mv) throws Exception {		
+	public ModelAndView boardUpdate(long num,ModelAndView mv, Model model) throws Exception {		
 		BoardVO boardVO=noticeService.boardSelect(num);
 		mv.addObject("vo", boardVO);
 		mv.setViewName("board/boardUpdate");
+		NoticeVO noticeVO = (NoticeVO)boardVO;
+		model.addAttribute("size", noticeVO.getBoardFileVOs().size());
 		return mv;
 	}
-
+	
+//noticeUpdate",POST
 	@RequestMapping(value = "noticeUpdate", method=RequestMethod.POST)
-	public String boardUpdate(NoticeVO noticeVO,ModelAndView mv) throws Exception {
-		int result=noticeService.boardupdate(noticeVO);
+	public String boardUpdate(HttpServletRequest request,NoticeVO noticeVO,ModelAndView mv,BoardVO boardVO,MultipartFile[] files) throws Exception {
+		for(MultipartFile multipartFile:files) {
+			System.out.println("files:"+multipartFile.getOriginalFilename());
+		}
+//		//파라미터 이름 알아보기<버그>
+//		Enumeration<String> er=request.getParameterNames();
+//		//몇개들어간지 알 수 없기 때문<버그>
+//		while(er.hasMoreElements()) {
+//			System.out.println(er.nextElement());
+//		}
+//		
+		int result=noticeService.boardupdate(noticeVO,files);
 		//result=0;
 		String path="";
 		if(result>0) {
@@ -143,6 +157,15 @@ public class NoticeController {
 		return mv;
 		
 	}
+	
+	//fileList
+		@RequestMapping(value = "fileList", method=RequestMethod.GET)
+		public ModelAndView fileList(ModelAndView mv,BoardFileVO boardFileVO) throws Exception{
+			
+			
+			mv.addObject("file",boardFileVO);
+			return mv;
+		}
 	
 
 

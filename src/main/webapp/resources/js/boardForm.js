@@ -8,6 +8,10 @@
 	</div>  */
 
 	var count=1;
+	//첨부파일이 두개라면 카운트가 2로 바껴야 함 ->보드 업데이트
+	function setCount(c){
+		count=count+c;
+	}
     $("#add").click(function() {
     
 		 if(count<6){		

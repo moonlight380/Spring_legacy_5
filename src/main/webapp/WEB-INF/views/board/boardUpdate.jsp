@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,9 @@
 <body>
 <c:import url="../template/header.jsp"></c:import>
 <div class="container">
-<form action="./${board}Update" method="post">
-
+<form action="./${board}Update" method="post" enctype="multipart/form-data">
+<!-- &lt :꺽쇠 -->
+	<h1>${fn:toUpperCase(board)} Update Form</h1>
       <input type="hidden"  id="num" name="num" value="${vo.num}">
    	<!-- mapper에서 몇개의 데이터를 보내주는지 체크 -->
     
@@ -32,60 +34,76 @@
 		<textarea rows="5" cols="" class="form-control" id="contents" name="contents">${vo.contents}</textarea>
 	</div> 
 
-<!-- 	  <input type="button" id="add" class="btn btn-info" value="AddFile">
+ 	  <input type="button" id="add" class="btn btn-info" value="AddFile">
 		<div id="file">
-			
-		</div> -->
+		
+		</div>
+		
+		
 	  <div class="form-group" >
 		  	<label for="files">Files:</label>
 		  	<c:forEach items="${vo.boardFileVOs}" var="fileVO">
-			  	<p>${fileVO.oriName}<i id="${fileVO.fileNum }" class="glyphicon glyphicon-remove remove fileDelete"></i></p>
+			  	<p>${fileVO.oriName}<i id="${fileVO.fileNum }" title="${fileVO.board }" class="glyphicon glyphicon-remove remove fileDelete"></i></p>
 		  	
 		  	</c:forEach>
 		  	
 		  	
 		  </div>
 	
-    <button type="submit" class="btn btn-default">Submit</button>
+   <input type="submit" id="btn" class="btn btn-default" value="Write">
   </form>
 
 </div>
 
 
 
-<!-- <script type="text/javascript" src="../resources/js/boardForm.js"> -->
-<script type="text/javascript" ">
-	//$("선택자").action();
-	$("#contents").summernote({
+
+
+<%-- 	//$("선택자").action();
+/* 	$("#contents").summernote({
 		height: 400,                 
 		minHeight: null,            
 		maxHeight: null,             
 		focus: true    
-		
+	
 	});
-	
-	
-	$(".fileDelete").click(function() {
+	var size=${size};
+	size=${vo.boardFileVOs.size()};// 뒤에 있는 사이즈 자동으로 게터를 찾는데 없으니까 자동으로 문자열로 인식
+	// 따라서 게터가 아닌 메서드들을 부를때 소괄호 해서 메서드 형식으로 쓴다.
+	// el에서 직접호출
+	size=${fn:length(vo.boardFileVOs)};
+	alert(size); */ --%>
+<script type="text/javascript" src="../resources/js/boardForm.js"></script>
+	<script type="text/javascript">
+		$("#contents").summernote('code', '${vo.contents}');
 		
-		var s = $(this);
+		var size = ${size};
 		
-		$.post("../boardFile/fileDelete", {fileNum:$(this).attr("id")}, function(data) {
+		size = ${vo.boardFileVOs.size()};
+		
+		size = ${fn:length(vo.boardFileVOs)};
+		
+		
+		
+		count = count+size;
+		
+		$(".fileDelete").click(function() {
 			
+			var check = confirm("정말 지울 거냐??");
 			
-			if(data.trim()>0){
-				alert("success");
-				s.parent().remove();
-			}else {
-				alert("File Delete Fail");
+			if(check){
+				var s = $(this);
+				
+				$.post("../boardFile/fileDelete", {fileNum:$(this).attr("id"), board:$(this).attr("title")}, function(data) {
+					if(data.trim()>0){
+						s.parent().remove();
+						count--;
+					}else {
+						alert("File Delete Fail");
+					}
+				} );
 			}
-		} );
-	});
-	
-
-	
-	
-	
-	
-</script>
+		});
+	</script>
 </body>
 </html>

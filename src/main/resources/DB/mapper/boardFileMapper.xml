@@ -17,10 +17,19 @@
   </select>
   
   
-  <select id="fileDelete" parameterType="Long" >
+  <delete id="fileDelete" parameterType="BoardFileVO" >
   delete boardFile where fileNum=#{fileNum}
   
-  </select>
+  </delete>
   
+    <delete id="fileDeleteAll" parameterType="Long" >
+  delete boardFile where num=#{num}
+  
+  </delete>
+  
+  <select id="fileList" parameterType="Long" resultType="BoardFileVO">
+  <!-- //어떤 글의 글번호를 이용해서 파일의 정보를 꺼내오는 것 -->
+  select * from boardFile where num=#{num}
+  </select> 
   </mapper>
   
