@@ -18,10 +18,12 @@
 		}
 	});
 	/////////////////////////////////////////////////
+	
 	$("#contents").summernote({
 		height: 300,
 		callbacks:{
 			onImageUpload:function(files, editor){
+				console.log("d");
 				var formData = new FormData();//<form></form>
 				formData.append('files', files[0]); //<input type="file" name="">
 				$.ajax({
@@ -34,14 +36,36 @@
 					processData:false,
 					success:function(imageName){
 						console.log(imageName);
-						imageName=imageName.trim();
-						$(editor).summernote('editor.insertImage', "../resources/summer/"+imageName);
+						imageName=imageName.trim();//공백제거는 습관적으로
+						$("#contents").summernote('editor.insertImage', imageName);//에디터는 썸머 자기자신 */
+						
 					}
 					
 				});
-			}
-		}
-	});
+			},//onImageUpload  , 로 구분
+			onMediaDelete:function(files){
+				var fileName= $(files[0]).attr("src");
+				fileName=fileName.substring(fileName.lastIndexOf("/")); //가장 마지막 슬러시가 오는 곳 ,+1은 그다음 부터
+				//파일 이름을 찾기 위해서
+				console.log(fileName);
+				//console.log(files); //files은 배열
+				//경로명과 파일명은 속성에 있어서 속성을 꺼내 오는 것.
+				////
+				//아래의 url로 보낼 준비가 완성
+				 $.ajax({
+					type:"POST",
+					url:"../boardFile/summerDelete",
+					data:{
+						fileName:fileName					
+					},
+					success:function(data){
+						console.log(data);
+					}
+				}); 
+			}//OnMediaDelete
+		}	//callback
+	}); 
+	
 	
 	
 	
