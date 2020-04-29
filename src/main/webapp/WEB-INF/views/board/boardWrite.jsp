@@ -48,28 +48,34 @@
 
 
 <!-- 썸머노트경로를 준다. -->
-<script type="text/javascript" src="../resources/js/boardForm.js"> </script>
-<!-- <script type="text/javascript">
+<!-- <script type="text/javascript" src="../resources/js/boardForm.js"> </script>  -->
+
+ <script type="text/javascript">
 $("#contents").summernote({
-	height: 400,                 
-	minHeight: null,            
-	maxHeight: null,             
-	focus: true,
+	height: 300,
 	callbacks:{
-		onImageUpload: function(file) {  
-			 $.ajax({
-				type="POST",
+		onImageUpload:function(files, editor){
+			console.log("d");
+			var formData = new FormData();//<form></form>
+			formData.append('files', files[0]); //<input type="file" name="">
+			$.ajax({
+				type:"POST",
 				url:"../boardFile/fileInsert",
+				data:formData,
 				enctype:"multipart/form-data",
 				cache:false,
+				contentType:false,
 				processData:false,
-				success:function(imageName){}
-				})
-			 
-		 }
-	}
-});
-</script> -->
-
+				success:function(imageName){
+					
+					imageName=imageName.trim();//공백제거는 습관적으로
+					$(editor).summernote('editor.insertImage',imageName);//에디터는 썸머 자기자신
+				}
+				
+			});
+		}
+	}	
+}); 
+</script>
 </body>
 </html>

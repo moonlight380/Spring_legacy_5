@@ -7,7 +7,7 @@
    
    <resultMap type="MemberVO" id="loginResult">
    		<id column="Id" property="id"/>
-   		<result column="Pw" property="password"/>
+   		<result column="password" property="password"/>
    		<result column="name" property="name"/>
 		<result column="email" property="email"/>
 		<result column="tel" property="tel"/>
@@ -89,7 +89,7 @@
    
 <!-- insert/join -->
    <insert id="memberJoin" parameterType="MemberVO">
-   INSERT INTO member VALUES (#{id},#{password},#{name},#{email},#{tel},#{age})
+   INSERT INTO member() VALUES (#{id},#{password},#{name},#{age},#{email},#{tel})
    </insert>
  
  

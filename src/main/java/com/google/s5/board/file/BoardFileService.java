@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.s5.util.FileSaver;
 
@@ -18,16 +19,24 @@ public class BoardFileService {
 	@Autowired
 	private FileSaver fileSaver;
 	
+	
+	public String fileInsert(MultipartFile files)throws Exception{
+		String path= servletContext.getRealPath("/resources/summer");
+		System.out.println(path);
+		return fileSaver.saveByTransfer(files, path);
+	}
+	
+	
 	public BoardFileVO fileSelect(BoardFileVO boardFileVO) throws Exception{
 		return boardFileDAO.fileSelect(boardFileVO);
 	}
 
-	//디비에서만 지움 ->디비에서 지우기 전에 파일도 지우면 좋다 매개변수로 같이 받는다.
+	//�뵒鍮꾩뿉�꽌留� 吏��� ->�뵒鍮꾩뿉�꽌 吏��슦湲� �쟾�뿉 �뙆�씪�룄 吏��슦硫� 醫뗫떎 留ㅺ컻蹂��닔濡� 媛숈씠 諛쏅뒗�떎.
 	public int fileDelete(BoardFileVO boardFileVO) throws Exception{
 		boardFileVO=boardFileDAO.fileSelect(boardFileVO);
 		int result = boardFileDAO.fileDelete(boardFileVO);
 		
-		//1.먼저 HDD에서 지우고 
+		//1.癒쇱� HDD�뿉�꽌 吏��슦怨� 
 		String board="uploadnotice";
 		if(boardFileVO.getBoard()==2) {
 			board="uploadqna";
@@ -35,8 +44,8 @@ public class BoardFileService {
 		String path= servletContext.getRealPath("/resources/"+board);
 		
 		fileSaver.deleteFile(boardFileVO.getFileName(), path);
-		//둘중에 하나라도 실패했을 때 어느것이 문제가 있느냐 
-		// 더 중요 한 것 boardFileDAO.fileDelete(boardFileVO);
+		//�몮以묒뿉 �븯�굹�씪�룄 �떎�뙣�뻽�쓣 �븣 �뼱�뒓寃껋씠 臾몄젣媛� �엳�뒓�깘 
+		// �뜑 以묒슂 �븳 寃� boardFileDAO.fileDelete(boardFileVO);
 		return result;
 	}
 	

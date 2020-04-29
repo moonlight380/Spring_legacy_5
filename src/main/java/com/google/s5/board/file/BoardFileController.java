@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -15,7 +16,18 @@ public class BoardFileController {
 	
 	@Autowired
 	private BoardFileService boardFileService;
-	//두개 다 넘기기 위해 매개변수 boardFileVO
+	
+	@PostMapping("fileInsert")
+	public ModelAndView fileInsert (MultipartFile files,ModelAndView mv) throws Exception{
+		String fileName = boardFileService.fileInsert(files);
+		mv.addObject("result",fileName);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	
+	//�몢媛� �떎 �꽆湲곌린 �쐞�빐 留ㅺ컻蹂��닔 boardFileVO
 	@PostMapping("fileDelete")
 	public ModelAndView fileDelete(BoardFileVO boardFileVO)throws Exception{
 		ModelAndView mv = new ModelAndView();	
