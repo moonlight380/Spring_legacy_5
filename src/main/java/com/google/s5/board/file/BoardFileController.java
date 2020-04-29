@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,16 +38,17 @@ public class BoardFileController {
 	
 	
 	
-	//�몢媛� �떎 �꽆湲곌린 �쐞�빐 留ㅺ컻蹂��닔 boardFileVO
+	//reponse에 들어가는 바디에 들어간다. 
 	@PostMapping("fileDelete")
-	public ModelAndView fileDelete(BoardFileVO boardFileVO)throws Exception{
-		ModelAndView mv = new ModelAndView();	
+	@ResponseBody//꼭 키가 없어도 데이터만 보내도 데이터만 나온다. 
+	public int fileDelete(BoardFileVO boardFileVO)throws Exception{
+		//ModelAndView mv = new ModelAndView();	
 		int result = boardFileService.fileDelete(boardFileVO);
 		
-		mv.addObject("result", result);
-		mv.setViewName("common/ajaxResult");
+//		mv.addObject("result", result);
+//		mv.setViewName("common/ajaxResult");
 		
-		return mv;		
+		return result;		
 	}
 	
 	@GetMapping("fileDown")

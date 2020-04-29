@@ -77,6 +77,7 @@
 			//$.get("url?name=value")
 			//$.post()
 			//파라미터가 2개 이상이 들어가서 두가지를 묶어줄 {파라미터이름, (변수명)밸류}  문자열 형식 아님
+			//memo.memoinert//memocontroller
 			$.post("./memoInsert", {writer:writer, contents:contents}, function(result) {
 				result=result.trim();
 				

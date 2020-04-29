@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <!DOCTYPE html>
 <html>
@@ -95,7 +95,9 @@
 				var s = $(this);
 				
 				$.post("../boardFile/fileDelete", {fileNum:$(this).attr("id"), board:$(this).attr("title")}, function(data) {
-					if(data.trim()>0){
+					//키없이 값만 오면 trim 할 필요가 없다.
+					//data.trim()>0
+					if(data>0){
 						s.parent().remove();
 						count--;
 					}else {
