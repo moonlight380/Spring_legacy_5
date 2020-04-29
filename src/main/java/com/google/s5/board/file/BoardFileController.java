@@ -17,6 +17,16 @@ public class BoardFileController {
 	@Autowired
 	private BoardFileService boardFileService;
 	
+	@PostMapping("summerDelete")
+	public ModelAndView fileDelete(String fileName)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = boardFileService.fileDelete(fileName); //호출
+		mv.addObject("result",result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
 	@PostMapping("fileInsert")
 	public ModelAndView fileInsert (MultipartFile files,ModelAndView mv) throws Exception{
 		String fileName = boardFileService.fileInsert(files);

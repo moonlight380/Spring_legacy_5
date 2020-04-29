@@ -20,10 +20,22 @@ public class BoardFileService {
 	private FileSaver fileSaver;
 	
 	
-	public String fileInsert(MultipartFile files)throws Exception{
+	
+	public int fileDelete(String fileName) throws Exception{
+		
 		String path= servletContext.getRealPath("/resources/summer");
+		int result=fileSaver.deleteFile(fileName, path); //숫자를 리턴해서 int
+		
+		return result;
+	}
+	
+	
+	public String fileInsert(MultipartFile files)throws Exception{
+		String path = servletContext.getRealPath("/resources/summer");
 		System.out.println(path);
-		return fileSaver.saveByTransfer(files, path);
+		path = fileSaver.saveByTransfer(files, path);
+		path = servletContext.getContextPath()+"/resources/summer/"+path;
+		return path;
 	}
 	
 	
