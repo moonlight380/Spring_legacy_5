@@ -4,9 +4,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:DB/config/*.properties"></property>
+		<property name="locations" value="classpath:DB/config/"></property>
 	</bean>
-	
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
@@ -15,6 +14,7 @@
 		<property name="url" value="${oracle.url}" />
 		<property name="driverClassName" value="${oracle.driver}" />
 	</bean>
+	
 	<!-- mybatis 기본 라이브러리 -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
