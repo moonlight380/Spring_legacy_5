@@ -121,7 +121,7 @@
   		</update>
   
   
-    	<update id="hitUpdate" parameterType="java.lang.Long">
+    	<update id="hitUpdate" parameterType="Long">
   		UPDATE notice set hit=hit+1 where num=#{num}
   		</update>
   </mapper>
