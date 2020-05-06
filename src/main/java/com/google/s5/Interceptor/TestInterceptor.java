@@ -12,7 +12,7 @@ public class TestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+		//request.getParameter(name) 꺼내올 수 있다
 		System.out.println("Controller 진입 전");
 		System.out.println("return이 true면 controller로 이동");
 		System.out.println("return이 flase면 controller로 이동");

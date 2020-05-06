@@ -38,6 +38,8 @@ public class QnaInterceptor extends HandlerInterceptorAdapter{
 		String path=request.getServletPath();
 		path=path.substring(path.lastIndexOf("/"));
 		System.out.println(path);
+		
+		
 	if(method.equals("GET")&&path.equals("/qnaUpdate")){
 		MemberVO memberVO = (MemberVO)request.getSession().getAttribute("member");
 		BoardVO boardVO = (BoardVO)modelAndView.getModel().get("vo");
