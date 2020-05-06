@@ -89,7 +89,7 @@
    
 <!-- insert/join -->
    <insert id="memberJoin" parameterType="MemberVO">
-   INSERT INTO member() VALUES (#{id},#{password},#{name},#{age},#{email},#{tel})
+   INSERT INTO member VALUES (#{id},#{password},#{name},#{age},#{email},#{tel})
    </insert>
  
  

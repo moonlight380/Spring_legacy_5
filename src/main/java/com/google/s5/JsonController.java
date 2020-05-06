@@ -7,13 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.s5.board.BoardVO;
 import com.google.s5.notice.NoticeService;
 import com.google.s5.util.Pager;
 
-@Controller
+@RestController
 @RequestMapping("/json/**")
 public class JsonController {
 	@Autowired

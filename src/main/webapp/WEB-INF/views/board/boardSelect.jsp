@@ -32,15 +32,15 @@
 </div>
 
 	<!-- 이미지가 여러개 이므로 반복문 -->	
-		<div>
+	<div>
+		<c:catch>
 		<c:forEach items="${vo.boardFileVOs}" var="file">
 			<div>
 			   <a href="../boardFile/fileDown?fileNum=${file.fileNum}&board=${file.board}">${file.oriName}</a>
 			</div>
 		</c:forEach>
-		</div>
-	
-
+		</c:catch>
+	</div>
 
 
 <div>

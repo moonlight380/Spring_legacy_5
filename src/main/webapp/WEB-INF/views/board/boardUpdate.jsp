@@ -41,12 +41,14 @@
 		
 		
 	  <div class="form-group" >
+	  		
 		  	<label for="files">Files:</label>
+		  	<c:catch>
 		  	<c:forEach items="${vo.boardFileVOs}" var="fileVO">
 			  	<p>${fileVO.oriName}<i id="${fileVO.fileNum }" title="${fileVO.board }" class="glyphicon glyphicon-remove remove fileDelete"></i></p>
 		  	
 		  	</c:forEach>
-		  	
+		  	</c:catch>
 		  	
 		  </div>
 	
