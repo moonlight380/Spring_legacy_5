@@ -13,8 +13,8 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="username" value="#{db['oracle.user']}" />
 		<property name="password" value="#{db['oacle.pw']}" />
-		<property name="url" value="#{db.['oracle.url']}" />
-		<property name="driverClassName" value="#{db.['oracle.driver']}" />
+		<property name="url" value="#{db['oracle.url']}" />
+		<property name="driverClassName" value="#{db['oracle.driver']}" />
 	</bean>
 	
 	<!-- mybatis 기본 라이브러리 -->
