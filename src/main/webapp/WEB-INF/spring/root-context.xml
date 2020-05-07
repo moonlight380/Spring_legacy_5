@@ -32,7 +32,7 @@
 	</bean>
 		
 	<!-- transaction 관리자 -->	
-	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="txManager">
+	<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>	
 		
@@ -47,6 +47,22 @@
 		<property name="maxUploadSize" value="104857600"></property>
 	</bean>
 	
-	<tx:annotation-driven proxy-target-class="true"/>
+	<!-- 어노테이션-->
+ 	<tx:annotation-driven proxy-target-class="true"/>
+	
+	
+	
+	<!-- Advice transaction Advice -->
+<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.iu.s5..*Service.*(..))" id="requriedTx"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requriedTx" />
+	</aop:config> -->
+	
 	
 </beans>

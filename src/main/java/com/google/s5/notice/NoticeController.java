@@ -87,7 +87,7 @@ public class NoticeController {
 //			System.out.println(er.nextElement());
 //		}
 //		
-		
+		System.out.println(noticeVO.getTitle());
 		int result=noticeService.boardWrite(noticeVO,files);	
 		//result=0;
 		if(result>0) {

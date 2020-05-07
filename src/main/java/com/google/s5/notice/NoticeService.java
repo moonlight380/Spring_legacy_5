@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.s5.board.BoardService;
@@ -21,6 +22,7 @@ import com.google.s5.util.FileSaver;
 import com.google.s5.util.Pager;
 
 @Service
+//@Transactional //알아서 롤백
 public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeDAO noticeDAO; //서비스는 디에오에 대해 의존적	
@@ -60,6 +62,7 @@ public class NoticeService implements BoardService {
 	}
 	//write
 	@Override
+	@Transactional 
 	public int boardWrite(BoardVO boardVO,MultipartFile[] files) throws Exception {
 		// TODO Auto-generated method stub
 		String path = servletContext.getRealPath("/resources/uploadnotice");
@@ -78,7 +81,7 @@ public class NoticeService implements BoardService {
 			if(file.getSize()>0) {
 			BoardFileVO boardFileVO = new BoardFileVO(); // 한번 돌때마다 새로운 파일
 			String fileName=fileSaver.saveByTransfer(file, path);
-			boardFileVO.setNum(boardVO.getNum());
+			boardFileVO.setNum(boardVO.getNum()); //noticetable에 글을 인서트하면 이 파일이 누구의 글에 있는 파일이냐
 			boardFileVO.setFileName(fileName);
 			boardFileVO.setOriName(file.getOriginalFilename());
 			boardFileVO.setBoard(1);
@@ -110,6 +113,10 @@ public class NoticeService implements BoardService {
 			boardFileVO.setBoard(1);
 			
 			result=boardFileDAO.fileInsert(boardFileVO); //파일의 갯수만큼이라서 반복문 안에// 디비에 저장
+			//강제로 롤백시키기 0이 나왔을 때 
+				if(result<1) {
+					throw new Exception();
+				}
 			}
 		}
 		return result;

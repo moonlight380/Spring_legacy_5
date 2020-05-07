@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.s5.board.BoardVO;
@@ -16,6 +17,7 @@ import com.google.s5.util.Pager;
 
 
 @Service
+@Transactional //알아서 롤백
 public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;

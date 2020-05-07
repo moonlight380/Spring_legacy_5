@@ -7,7 +7,7 @@
   
   <!-- insert -->
   <insert id="fileInsert" parameterType="BoardFileVO">
-  insert into boardFile values(file_seq.nextval,#{num},#{fileName},#{oriName},#{board})
+  insert into boardFile values(1,#{num},#{fileName},#{oriName},#{board})
   <!-- 원래는 get.name인데 게터 없으면 오류 날 수 있음 -->
   </insert>
   <!-- select -->
