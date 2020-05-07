@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:DB/config/*.properties"></property>
-	</bean>
+	<util:properties location="classpath:DB/config/db.properties" id="db"></util:properties>
+	<!-- *을 못읽어올 수도 있어서 안전하게 파일명을 모두 써주는 게 좋다 -->
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-		<property name="username" value="${oracle.user}" />
-		<property name="password" value="${oracle.pw}" />
-		<property name="url" value="${oracle.url}" />
-		<property name="driverClassName" value="${oracle.driver}" />
+		<property name="username" value="#{db['oracle.user']}" />
+		<property name="password" value="#{db['oacle.pw']}" />
+		<property name="url" value="#{db.['oracle.url']}" />
+		<property name="driverClassName" value="#{db.['oracle.driver']}" />
 	</bean>
 	
 	<!-- mybatis 기본 라이브러리 -->
