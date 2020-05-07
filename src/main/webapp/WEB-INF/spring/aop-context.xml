@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<bean class="com.google.s5.transfer.Transfer" id="transfer"></bean>
+	<bean class="com.google.s5.transfer.Card" id="card"></bean>
+	<aop:config>
+		<aop:aspect id="cardCheck" ref="card">
+			<aop:pointcut expression="execution(* com.google.s5.transfer.Transfer.*(*,*))" id="trans"/>
+			<aop:around method="cardCheck" pointcut-ref="trans"/>
+		</aop:aspect>
+		<aop:aspect id="taxicard" ref="card">
+			<aop:pointcut expression="execution(* com.google.s5.transfer.Transfer.*())" id="ta"/>
+			<aop:after-returning method="cardAfter" pointcut-ref="ta"/>
+		</aop:aspect>
+		
+	</aop:config>
+</beans>
