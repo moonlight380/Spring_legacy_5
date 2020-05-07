@@ -119,6 +119,9 @@ public class NoticeController {
 		for(MultipartFile multipartFile:files) {
 			System.out.println("files:"+multipartFile.getOriginalFilename());
 		}
+		
+		
+		
 //		//파라미터 이름 알아보기<버그>
 //		Enumeration<String> er=request.getParameterNames();
 //		//몇개들어간지 알 수 없기 때문<버그>
